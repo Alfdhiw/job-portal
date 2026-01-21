@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\JobController;
 use App\Http\Controllers\PublicController;
 use App\Http\Controllers\EmployerController;
+use App\Http\Controllers\LowonganController;
 use Illuminate\Support\Facades\Route;
 
 // Public Routes
@@ -14,7 +15,7 @@ Route::post('/job/{job}/apply', [PublicController::class, 'apply'])->name('job.a
 Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('/dashboard', function () {
-        if (auth()->user()->role === 'pelamar') {
+        if (auth()->user()->role === 'candidate') {
             return redirect()->route('home');
         }
         return redirect()->route('jobs.index');
@@ -23,8 +24,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // Admin Routes
     Route::middleware('admin')->group(function () {
         Route::resource('jobs', JobController::class);
+        Route::get('/list', [JobController::class, 'list'])->name('jobs.list');
         Route::get('/company-profile', [EmployerController::class, 'edit'])->name('employer.edit');
         Route::post('/company-profile', [EmployerController::class, 'update'])->name('employer.update');
+        Route::get('/candidate', [EmployerController::class, 'candidates'])->name('employer.candidates');
     });
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

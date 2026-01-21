@@ -16,7 +16,7 @@ class JobPolicy
 
     public function viewAny(User $user)
     {
-        return in_array($user->role, ['superadmin', 'admin']);
+        return in_array($user->role, ['superadmin', 'employer']);
     }
 
     public function update(User $user, Job $job)

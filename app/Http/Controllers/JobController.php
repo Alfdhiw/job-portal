@@ -3,34 +3,37 @@
 namespace App\Http\Controllers;
 
 use App\Models\Job;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 
 class JobController extends Controller
 {
 
     public function index()
     {
-        $user = Auth::user();
-        if ($user->role === 'superadmin') {
-            $jobs = Job::with('user')->latest()->paginate(10);
-        } else {
-            $jobs = Job::where('created_by_id', $user->id)
-                ->latest()
-                ->paginate(10);
-        }
+
+        $jobs = Job::active()
+            ->latest()
+            ->filter(request(['search', 'min_salary'])) 
+            ->paginate(10)
+            ->withQueryString();
+
         return view('jobs.index', compact('jobs'));
     }
 
     public function create()
     {
+        Gate::authorize('is-employer');
+
         return view('jobs.create');
     }
 
     public function store(Request $request)
     {
+        Gate::authorize('is-employer');
+
         $employer = Auth::user()->employer;
 
         if (!$employer) {
@@ -105,7 +108,7 @@ class JobController extends Controller
 
         $job->update($validatedData);
 
-        return redirect()->route('jobs.index')->with('success', 'Lowongan berhasil diperbarui!');
+        return redirect()->route('jobs.list')->with('success', 'Lowongan berhasil diperbarui!');
     }
 
     public function destroy(Job $job)
@@ -118,6 +121,15 @@ class JobController extends Controller
 
         $job->delete();
 
-        return redirect()->route('jobs.index')->with('success', 'Lowongan berhasil dihapus.');
+        return redirect()->route('jobs.list')->with('success', 'Lowongan berhasil dihapus.');
+    }
+
+    public function list()
+    {
+        $jobs = Job::where('created_by_id', Auth::id())
+            ->latest()
+            ->paginate(10);
+            
+        return view('jobs.list', compact('jobs'));
     }
 }

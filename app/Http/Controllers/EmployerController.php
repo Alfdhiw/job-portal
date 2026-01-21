@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Employer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use App\Models\JobApplication;
 
 class EmployerController extends Controller
 {
@@ -37,5 +40,17 @@ class EmployerController extends Controller
         $employer->save();
 
         return redirect()->back()->with('success', 'Profil Perusahaan berhasil disimpan.');
+    }
+
+    public function candidates()
+    {
+        $applications = JobApplication::with('job')
+            ->whereHas('job', function ($query) {
+                $query->where('created_by_id', Auth::id());
+            })
+            ->latest()
+            ->paginate(10);
+
+        return view('employer.index', compact('applications'));
     }
 }
