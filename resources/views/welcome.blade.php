@@ -38,6 +38,11 @@
                         Dashboard
                     </a>
 
+                    @elseif(Auth::user()->role === 'superadmin')
+                    <a href="{{ route('superadmin.dashboard') }}" class="px-5 py-2.5 text-sm font-semibold text-white bg-primary-900 rounded-full hover:bg-primary-600 transition shadow-md hover:shadow-lg transform hover:-translate-y-0.5">
+                        Dashboard
+                    </a>
+
                     {{-- LOGIKA 2: JIKA CANDIDATE (Tampilkan Dropdown User) --}}
                     @else
                     <div x-data="{ open: false }" class="relative">
@@ -69,7 +74,7 @@
                             </div>
 
                             {{-- Kamu bisa tambahkan menu edit profile disini jika mau --}}
-                            {{-- <a href="{{ route('profile.edit') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-600">Edit Profile</a> --}}
+                            <a href="{{ route('candidate.profile') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-600">Edit Profile</a>
 
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
@@ -136,7 +141,7 @@
 
             <div class="mt-10 max-w-4xl mx-auto">
                 <div class="bg-white p-3 rounded-2xl shadow-xl border border-gray-200">
-                    <form action="{{ route('jobs.index') }}" method="GET" class="flex flex-col md:flex-row gap-3">
+                    <form action="{{ route('public.jobs') }}" method="GET" class="flex flex-col md:flex-row gap-3">
 
                         <div class="flex-1 relative">
                             <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -169,8 +174,11 @@
 
                 @if(request('search') || request('min_salary'))
                 <div class="mt-4 text-center">
-                    <span class="text-primary-100 text-sm mr-2">Menampilkan hasil untuk pencarian Anda.</span>
-                    <a href="{{ route('jobs.index') }}" class="text-white underline text-sm hover:text-yellow-300 transition">Reset Filter</a>
+                    <span class="text-gray-50 text-sm mr-2">Menampilkan hasil pencarian.</span>
+                    {{-- Arahkan reset ke public.jobs tanpa parameter --}}
+                    <a href="{{ route('public.jobs') }}" class="text-blue-50 underline text-sm hover:text-purple-600 transition">
+                        Reset Filter
+                    </a>
                 </div>
                 @endif
             </div>
@@ -192,10 +200,16 @@
             <div class="flex flex-col md:flex-row justify-between items-start gap-4">
                 <div class="flex gap-4">
                     <div class="h-14 w-14 rounded-xl bg-primary-50 border border-gray-100 flex items-center justify-center shrink-0">
-                        @if($job->company_logo)
-                        <img src="{{ asset('storage/' . $job->company_logo) }}" alt="Logo" class="h-10 w-10 object-contain">
+                        {{-- Cek apakah data employer ada DAN memiliki logo --}}
+                        @if($job->employer && $job->employer->logo)
+                        <img src="{{ asset('storage/' . $job->employer->logo) }}"
+                            alt="{{ $job->employer->name }}"
+                            class="h-10 w-10 object-contain">
                         @else
-                        <span class="text-2xl font-bold text-primary-600">{{ substr($job->company_name, 0, 1) }}</span>
+                        {{-- Jika tidak ada logo, tampilkan inisial dari Nama Perusahaan (Employer) --}}
+                        <span class="text-2xl font-bold text-primary-600">
+                            {{ substr($job->employer->name ?? 'C', 0, 1) }}
+                        </span>
                         @endif
                     </div>
 
@@ -203,17 +217,17 @@
                         <h3 class="text-lg font-bold text-gray-900 group-hover:text-primary-700 transition">
                             <p>{{ $job->title }}</p>
                         </h3>
-                        <p class="text-sm text-gray-500 font-medium">{{ $job->company_name }}</p>
+                        <p class="text-sm text-gray-500 font-medium">{{ $job->employer->name }}</p>
 
                         <div class="mt-3 flex flex-wrap gap-2">
                             <span class="inline-flex items-center px-2.5 py-0.5 rounded-md text-xs font-medium bg-green-50 text-green-700 border border-green-100">
-                                Full Time
+                                {{$job->department}}
                             </span>
                             <span class="inline-flex items-center px-2.5 py-0.5 rounded-md text-xs font-medium bg-blue-50 text-blue-700 border border-blue-100">
                                 Rp {{ number_format($job->salary, 0, ',', '.') }}
                             </span>
                             <span class="inline-flex items-center px-2.5 py-0.5 rounded-md text-xs font-medium bg-primary-50 text-gray-600 border border-gray-100">
-                                Remote / On-site
+                                {{$job->location}}
                             </span>
                         </div>
                     </div>
@@ -309,7 +323,7 @@
             <h3 class="mt-4 text-lg font-medium text-gray-900">Lowongan tidak ditemukan</h3>
             <p class="mt-1 text-gray-500">Coba ubah kata kunci atau kurangi filter gaji Anda.</p>
             <div class="mt-6">
-                <a href="{{ route('jobs.index') }}" class="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-primary-700 bg-primary-100 hover:bg-primary-200">
+                <a href="{{ route('public.jobs') }}" class="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-primary-700 bg-primary-100 hover:bg-primary-200">
                     Reset Pencarian
                 </a>
             </div>

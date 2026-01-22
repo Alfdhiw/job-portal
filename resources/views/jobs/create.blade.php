@@ -48,6 +48,26 @@
                             Informasi Dasar
                         </h3>
 
+                        {{-- [BARU] Visual Feedback: Menampilkan Logo Otomatis --}}
+                        {{-- Pastikan controller mengirim variabel $employer ke view ini --}}
+                        <div class="mb-8 bg-slate-50 p-4 rounded-xl border border-slate-200 flex items-center gap-4">
+                            <div class="w-16 h-16 rounded-full overflow-hidden bg-white border border-slate-200 flex-shrink-0">
+                                {{-- Menampilkan logo dari profil employer --}}
+                                <img src="{{ asset('storage/' . $employer->logo) }}" alt="Logo Perusahaan" class="w-full h-full object-cover">
+                            </div>
+                            <div>
+                                <p class="text-xs text-slate-500 font-semibold uppercase tracking-wider">Mewakili Perusahaan</p>
+                                <h4 class="font-bold text-slate-800 text-lg">{{ $employer->name }}</h4>
+                                <p class="text-xs text-emerald-600 flex items-center gap-1">
+                                    <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                    </svg>
+                                    Logo akan terlampir otomatis
+                                </p>
+                            </div>
+                        </div>
+                        {{-- [END BARU] --}}
+
                         <div class="space-y-6">
                             {{-- Judul Pekerjaan (Full Width) --}}
                             <div>
@@ -102,6 +122,7 @@
                         <div class="w-full prose max-w-none">
                             <label class="block font-semibold text-sm text-slate-700 mb-2">Deskripsi Lengkap <span class="text-red-500">*</span></label>
                             <div class="rounded-xl overflow-hidden border border-slate-200 shadow-sm focus-within:ring-2 focus-within:ring-indigo-500 focus-within:border-indigo-500">
+                                {{-- ID Editor untuk WYSIWYG --}}
                                 <textarea name="description" id="editor" class="w-full"></textarea>
                             </div>
                             <p class="text-xs text-slate-500 mt-2">*Jelaskan tanggung jawab dan kualifikasi yang dibutuhkan secara rinci.</p>
@@ -137,27 +158,14 @@
                             Simpan Lowongan
                         </button>
                     </div>
-
                 </div>
             </form>
-
         </div>
     </div>
 </x-app-layout>
 
 {{-- Script CKEditor --}}
 <script src="https://cdn.ckeditor.com/ckeditor5/40.0.0/classic/ckeditor.js"></script>
-
-<script>
-    ClassicEditor
-        .create(document.querySelector('#editor'), {
-            toolbar: ['heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote'],
-            placeholder: 'Tuliskan deskripsi pekerjaan, tanggung jawab, dan persyaratan di sini...'
-        })
-        .catch(error => {
-            console.error(error);
-        });
-</script>
 
 <style>
     /* Styling khusus untuk konten di dalam CKEditor agar list-nya muncul rapi */

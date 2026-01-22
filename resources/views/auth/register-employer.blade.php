@@ -1,10 +1,10 @@
 <x-guest-layout>
-    <div class="mb-8 text-center">
-        <h2 class="text-2xl font-bold text-slate-900">Buat Akun Baru</h2>
-        <p class="text-slate-500 text-sm mt-2">Mulai karir impianmu bersama KarirKu.</p>
+    <div class="mb-4 text-center">
+        <h2 class="text-xl font-bold text-indigo-700">Pendaftaran Perusahaan</h2>
+        <p class="text-sm text-gray-600">Buat akun untuk memposting lowongan kerja</p>
     </div>
 
-    <form method="POST" action="{{ route('register') }}">
+    <form method="POST" action="{{ route('register.employer') }}">
         @csrf
 
         <div class="mb-5">
@@ -68,16 +68,8 @@
                 Daftar Sekarang
             </button>
         </div>
-        <div class="mt-6 text-center border-t border-gray-100 pt-4">
-            <p class="text-sm text-gray-600">
-                Ingin merekrut pegawai?
-                <a href="{{ route('register.employer') }}" class="font-bold text-indigo-600 hover:text-indigo-900">
-                    Daftar sebagai Perusahaan
-                </a>
-            </p>
-        </div>
 
-        <div class="mt-1 text-center">
+        <div class="mt-6 text-center">
             <p class="text-sm text-slate-500">
                 Sudah punya akun?
                 <a href="{{ route('login') }}" class="font-bold text-indigo-600 hover:text-indigo-500 transition">

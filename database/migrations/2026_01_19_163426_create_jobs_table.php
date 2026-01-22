@@ -17,13 +17,11 @@ return new class extends Migration
 
             $table->string('title');
             $table->string('department');
-            $table->string('company_name');
-            $table->string('company_logo')->nullable();
             $table->text('description');
             $table->date('published_at')->nullable();
             $table->date('expires_at')->nullable();
             $table->string('location')->nullable();
-            $table->string('salary')->nullable();
+            $table->integer('salary')->nullable();
             $table->boolean('is_published')->default(true); 
 
             $table->timestamps();

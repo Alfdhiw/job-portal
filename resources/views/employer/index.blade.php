@@ -49,7 +49,7 @@
                                             <div class="flex-shrink-0 h-10 w-10">
                                                 {{-- Buat inisial dari nama pelamar --}}
                                                 <div class="h-10 w-10 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600 font-bold">
-                                                    {{ substr($app->name ?? 'Guest', 0, 1) }}
+                                                    {{ substr($app->full_name ?? 'Guest', 0, 1) }}
                                                 </div>
                                             </div>
                                             <div class="ml-4">
@@ -62,7 +62,6 @@
 
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         <div class="text-sm text-slate-900 font-medium">{{ $app->job->title }}</div>
-                                        <div class="text-xs text-slate-500">{{ $app->job->type ?? 'Full Time' }}</div>
                                     </td>
 
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-slate-500">
@@ -70,8 +69,8 @@
                                     </td>
 
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-slate-500">
-                                        @if($app->resume_path)
-                                        <a href="{{ asset('storage/' . $app->resume_path) }}" target="_blank" class="text-indigo-600 hover:text-indigo-900 underline flex items-center gap-1">
+                                        @if($app->cv_path)
+                                        <a href="{{ asset('storage/' . $app->cv_path) }}" target="_blank" class="text-indigo-600 hover:text-indigo-900 underline flex items-center gap-1">
                                             <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                                             </svg>
@@ -87,10 +86,8 @@
                                         $statusClasses = [
                                         'pending' => 'bg-yellow-100 text-yellow-800',
                                         'interview' => 'bg-blue-100 text-blue-800',
-                                        'accepted' => 'bg-green-100 text-green-800',
-                                        'rejected' => 'bg-red-100 text-red-800',
+                                        'confirmed' => 'text-green-300',
                                         ];
-                                        // Default ke pending jika kolom status kosong
                                         $statusClass = $statusClasses[$app->status] ?? 'bg-gray-100 text-gray-800';
                                         @endphp
                                         <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full {{ $statusClass }}">
@@ -99,7 +96,10 @@
                                     </td>
 
                                     <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                        <a href="#" class="text-indigo-600 hover:text-indigo-900">Detail</a>
+                                        {{-- Tambahkan parameter $app->id sebagai argumen kedua --}}
+                                        <a href="{{ route('employer.show', $app->id) }}" class="text-indigo-600 hover:text-indigo-900">
+                                            Detail
+                                        </a>
                                     </td>
                                 </tr>
                                 @endforeach

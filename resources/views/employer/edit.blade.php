@@ -14,35 +14,6 @@
 
     <div class="py-12 bg-slate-50 min-h-screen">
         <div class="max-w-5xl mx-auto sm:px-6 lg:px-8">
-
-            {{-- Flash Message Success --}}
-            @if(session('success'))
-            <div x-data="{ show: true }" x-show="show" x-init="setTimeout(() => show = false, 4000)" class="mb-6 bg-green-50 border-l-4 border-green-500 p-4 rounded-r-xl shadow-sm flex items-start gap-3 transition duration-500">
-                <div class="flex-shrink-0">
-                    <svg class="h-5 w-5 text-green-500 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                </div>
-                <div>
-                    <h3 class="text-sm font-bold text-green-800">Berhasil!</h3>
-                    <p class="text-sm text-green-700 mt-1">{{ session('success') }}</p>
-                </div>
-            </div>
-            @endif
-
-            {{-- Flash Message Error --}}
-            @if(session('error'))
-            <div class="mb-6 bg-red-50 border-l-4 border-red-500 p-4 rounded-r-xl shadow-sm flex items-start gap-3">
-                <svg class="h-5 w-5 text-red-500 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-                <div>
-                    <h3 class="text-sm font-bold text-red-800">Gagal!</h3>
-                    <p class="text-sm text-red-700 mt-1">{{ session('error') }}</p>
-                </div>
-            </div>
-            @endif
-
             <form method="POST" action="{{ route('employer.update') }}" enctype="multipart/form-data">
                 @csrf
 
@@ -141,11 +112,17 @@
                                 </div>
 
                                 {{-- Deskripsi --}}
-                                <div>
+                                <div class="mb-6">
                                     <label class="block font-semibold text-sm text-slate-700 mb-2">Tentang Perusahaan</label>
-                                    <textarea name="description" rows="5"
-                                        class="w-full rounded-xl border-slate-200 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 py-3 px-4 text-slate-700 transition placeholder-slate-400"
-                                        placeholder="Jelaskan visi misi, budaya kerja, atau bidang industri perusahaan Anda...">{{ old('description', $employer->description) }}</textarea>
+
+                                    {{-- Area Text Editor --}}
+                                    <div class="prose max-w-none">
+                                        <textarea name="description" id="editor">{{ old('description', $employer->description) }}</textarea>
+                                    </div>
+
+                                    @error('description')
+                                    <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                                    @enderror
                                 </div>
                             </div>
                         </div>

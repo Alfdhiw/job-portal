@@ -234,7 +234,7 @@
                         <div class="flex justify-between items-end mb-4">
                             <h3 class="text-xl font-bold text-slate-800">Lowongan Terbaru</h3>
                             {{-- Link ke halaman list semua job milik perusahaan --}}
-                            <a href="{{ route('jobs.index') }}" class="text-sm font-semibold text-primary-600 hover:text-primary-800">
+                            <a href="{{ route('jobs.list') }}" class="text-sm font-semibold text-primary-600 hover:text-primary-800">
                                 Lihat Semua
                             </a>
                         </div>
@@ -486,7 +486,7 @@
                         <div class="flex justify-between items-center mb-4">
                             <h4 class="font-bold text-slate-800">Statistik Cepat</h4>
                             {{-- Link ini bisa diarahkan ke halaman analytics jika ada --}}
-                            <a href="#" class="text-xs text-primary-600 font-bold hover:underline">Lihat Detail</a>
+                            <a href="{{ route('jobs.statistik') }}" class="text-xs text-primary-600 font-bold hover:underline">Lihat Detail</a>
                         </div>
 
                         <div class="space-y-3">
@@ -511,22 +511,97 @@
                         </div>
                     </div>
 
-                    {{-- Card: Contact Info (Mirip "Informasi Kontak") --}}
+                    {{-- Card: Contact Info (Informasi Perusahaan) --}}
                     <div class="bg-white rounded-3xl shadow-md border border-slate-100 p-6">
-                        <div class="flex justify-between items-center mb-4">
-                            <h4 class="font-bold text-slate-800">Informasi Kontak</h4>
-                            <a href="{{ route('profile.edit') }}" class="text-xs text-primary-600 font-bold hover:underline">Lihat Semua</a>
+
+                        {{-- Header Card --}}
+                        <div class="flex justify-between items-center mb-5">
+                            <h4 class="font-bold text-slate-800 flex items-center gap-2">
+                                Profil Perusahaan
+                            </h4>
+                            <a href="{{ route('employer.edit') }}" class="text-xs text-indigo-600 font-bold hover:text-indigo-800 transition">
+                                {{ auth()->user()->hasIncompleteProfile() ? 'Lengkapi' : 'Edit' }}
+                            </a>
                         </div>
-                        <div class="space-y-3 text-sm">
-                            <div class="flex flex-col">
-                                <span class="text-xs text-slate-400">Email Admin</span>
-                                <span class="text-slate-700 font-medium truncate">{{ Auth::user()->email }}</span>
+
+                        {{-- KONTEN CARD --}}
+                        @if(auth()->user()->hasIncompleteProfile())
+
+                        {{-- STATE 1: BELUM MENGISI PROFIL --}}
+                        <div class="flex flex-col items-center justify-center text-center py-4 bg-amber-50 rounded-xl border border-amber-100 p-4">
+                            <div class="bg-amber-100 p-3 rounded-full mb-3 text-amber-600">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+                                </svg>
                             </div>
-                            <div class="flex flex-col">
-                                <span class="text-xs text-slate-400">Nama Penanggung Jawab</span>
-                                <span class="text-slate-700 font-medium">{{ Auth::user()->name }}</span>
-                            </div>
+                            <p class="text-sm font-medium text-amber-800 mb-1">Data Belum Lengkap</p>
+                            <p class="text-xs text-amber-600 mb-3">Anda belum mengisi profil perusahaan.</p>
+
+                            <a href="{{ route('employer.edit') }}" class="px-4 py-2 text-xs font-bold text-white bg-amber-600 rounded-lg hover:bg-amber-700 transition">
+                                Lengkapi Sekarang
+                            </a>
                         </div>
+
+                        @else
+
+                        {{-- STATE 2: SUDAH ADA DATA --}}
+                        <div class="space-y-4">
+
+                            {{-- Nama Perusahaan --}}
+                            <div class="flex items-start gap-3">
+                                <div class="mt-1 p-2 bg-indigo-50 text-indigo-600 rounded-lg shrink-0">
+                                    {{-- Icon Building --}}
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+                                    </svg>
+                                </div>
+                                <div class="flex flex-col overflow-hidden">
+                                    <span class="text-xs text-slate-400 font-medium uppercase tracking-wider">Nama Perusahaan</span>
+                                    <span class="text-slate-800 font-bold truncate text-sm">
+                                        {{ auth()->user()->employer->name ?? '-' }}
+                                    </span>
+                                </div>
+                            </div>
+
+                            {{-- Alamat --}}
+                            <div class="flex items-start gap-3">
+                                <div class="mt-1 p-2 bg-emerald-50 text-emerald-600 rounded-lg shrink-0">
+                                    {{-- Icon Map Pin --}}
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                    </svg>
+                                </div>
+                                <div class="flex flex-col overflow-hidden">
+                                    <span class="text-xs text-slate-400 font-medium uppercase tracking-wider">Lokasi</span>
+                                    <span class="text-slate-700 font-medium text-sm leading-snug">
+                                        {{ auth()->user()->employer->address ?? '-' }}
+                                    </span>
+                                </div>
+                            </div>
+
+                            {{-- Website --}}
+                            <div class="flex items-start gap-3">
+                                <div class="mt-1 p-2 bg-sky-50 text-sky-600 rounded-lg shrink-0">
+                                    {{-- Icon Globe --}}
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"></path>
+                                    </svg>
+                                </div>
+                                <div class="flex flex-col overflow-hidden">
+                                    <span class="text-xs text-slate-400 font-medium uppercase tracking-wider">Website</span>
+                                    @if(!empty(auth()->user()->employer->website))
+                                    <a href="{{ auth()->user()->employer->website }}" target="_blank" class="text-indigo-600 hover:text-indigo-800 hover:underline font-medium text-sm truncate">
+                                        {{ auth()->user()->employer->website }}
+                                    </a>
+                                    @else
+                                    <span class="text-slate-400 text-sm italic">- Tidak ada website -</span>
+                                    @endif
+                                </div>
+                            </div>
+
+                        </div>
+                        @endif
                     </div>
                 </div>
             </div>

@@ -14,9 +14,13 @@ class JobController extends Controller
     public function index()
     {
 
+        if (Auth::user()->role === 'candidate') {
+            return redirect()->route('home');
+        }
+
         $jobs = Job::active()
             ->latest()
-            ->filter(request(['search', 'min_salary'])) 
+            ->filter(request(['search', 'min_salary']))
             ->paginate(10)
             ->withQueryString();
 
@@ -27,48 +31,55 @@ class JobController extends Controller
     {
         Gate::authorize('is-employer');
 
-        return view('jobs.create');
+        $employer = auth()->user()->employer;
+
+        if (auth()->user()->hasIncompleteProfile()) {
+            return redirect()->route('employer.edit')
+                ->with('error', 'Silakan lengkapi Nama, Logo, dan Deskripsi perusahaan sebelum memposting lowongan.');
+        }
+
+        return view('jobs.create', compact('employer'));
     }
 
     public function store(Request $request)
     {
+        // 1. Otorisasi
         Gate::authorize('is-employer');
 
+        // 2. Ambil Data Employer
         $employer = Auth::user()->employer;
 
+        // Cek jika profil perusahaan belum ada
         if (!$employer) {
-            return redirect()->route('employer.edit')->with('error', 'Harap lengkapi profil perusahaan terlebih dahulu!');
+            return redirect()->route('employer.edit')
+                ->with('error', 'Harap lengkapi profil perusahaan terlebih dahulu!');
         }
 
+        // 3. Validasi Input
         $request->validate([
-            'title' => 'required|string|max:255',
-            'department' => 'required|string|max:255',
-            'location' => 'required|string|max:255',
-            'description' => 'required',
+            'title'        => 'required|string|max:255',
+            'department'   => 'required|string|max:255',
+            'location'     => 'required|string|max:255',
+            'description'  => 'required', // Karena pakai WYSIWYG, stringnya bisa panjang
+            'salary'       => 'nullable|string', // Tambahkan ini agar input gaji tersimpan
             'published_at' => 'required|date',
-            'expires_at' => 'required|date|after:published_at',
+            'expires_at'   => 'required|date|after:published_at',
         ]);
 
-        $logoPath = null;
-        if ($request->hasFile('company_logo')) {
-            $logoPath = $request->file('company_logo')->store('logos', 'public');
-        }
-
-        Auth::user()->jobs()->create([
-            'title' => $request->title,
-            'company_name' => $employer->name,
-            'company_logo' => $employer->logo,
-            'department' => $request->department,
-            'location' => $request->location,
-            'description' => $request->description,
-            'company_logo' => $logoPath,
+        // 4. Simpan Data
+        // Gunakan $employer->jobs() agar 'employer_id' terisi otomatis
+        $employer->jobs()->create([
+            'title'        => $request->title,
+            'department'   => $request->department,
+            'location'     => $request->location,
+            'description'  => $request->description,
+            'salary'       => $request->salary,
             'published_at' => $request->published_at,
-            'expires_at' => $request->expires_at,
-            'salary' => $request->salary,
+            'expires_at'   => $request->expires_at,
             'is_published' => true,
         ]);
 
-        return redirect()->route('jobs.index')->with('success', 'Lowongan berhasil dibuat!');
+        return redirect()->route('jobs.list')->with('success', 'Lowongan berhasil dibuat!');
     }
 
     public function show(string $id)
@@ -80,7 +91,9 @@ class JobController extends Controller
     {
         Gate::authorize('update', $job);
 
-        return view('jobs.edit', compact('job'));
+        $employer = auth()->user()->employer;
+
+        return view('jobs.edit', compact('employer', 'job'));
     }
 
     public function update(Request $request, Job $job)
@@ -88,24 +101,16 @@ class JobController extends Controller
         Gate::authorize('update', $job);
 
         $validatedData = $request->validate([
-            'title' => 'required|string|max:255',
-            'company_name' => 'required|string|max:255',
-            'department' => 'required|string|max:255',
-            'location' => 'required|string|max:255',
-            'description' => 'required',
-            'company_logo' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'title'        => 'required|string|max:255',
+            'department'   => 'required|string|max:255',
+            'location'     => 'required|string|max:255',
+            'description'  => 'required',
             'published_at' => 'required|date',
-            'expires_at' => 'required|date|after:published_at',
-            'salary' => 'nullable|string',
+            'expires_at'   => 'required|date|after:published_at',
+            'salary'       => 'nullable|string',
         ]);
 
-        if ($request->hasFile('company_logo')) {
-            if ($job->company_logo) {
-                Storage::disk('public')->delete($job->company_logo);
-            }
-            $validatedData['company_logo'] = $request->file('company_logo')->store('logos', 'public');
-        }
-
+        // Update data job yang sedang diedit
         $job->update($validatedData);
 
         return redirect()->route('jobs.list')->with('success', 'Lowongan berhasil diperbarui!');
@@ -129,7 +134,12 @@ class JobController extends Controller
         $jobs = Job::where('created_by_id', Auth::id())
             ->latest()
             ->paginate(10);
-            
+
         return view('jobs.list', compact('jobs'));
+    }
+
+    public function statistik()
+    {
+        return view('statistik.statistik');
     }
 }

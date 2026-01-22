@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('email');
             $table->string('cv_path');
             $table->string('ktp_path');
+            $table->string('status')->default('pending');
 
             $table->timestamps();
         });

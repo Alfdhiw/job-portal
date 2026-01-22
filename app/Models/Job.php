@@ -66,4 +66,9 @@ class Job extends Model
             $q->where('salary', '>=', $salary);
         });
     }
+
+    public function creator()
+    {
+        return $this->belongsTo(User::class, 'created_by_id');
+    }
 }

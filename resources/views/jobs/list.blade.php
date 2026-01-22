@@ -19,9 +19,21 @@
                     </div>
 
                     {{-- TOMBOL TAMBAH (Kode dari Anda) --}}
-                    <a href="{{ route('jobs.create') }}" class="px-4 py-2 text-sm font-medium text-white transition-colors duration-150 bg-indigo-600 border border-transparent rounded-lg active:bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:shadow-outline-indigo">
+                    @if( ! auth()->user()->hasIncompleteProfile() )
+
+                    {{-- KONDISI 1: Button Aktif --}}
+                    <a href="{{ route('jobs.create') }}"
+                        class="px-4 py-2 text-sm font-medium text-white transition-colors duration-150 bg-indigo-600 border border-transparent rounded-lg active:bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:shadow-outline-indigo">
                         + Tambah Lowongan
                     </a>
+                    @else
+                    {{-- KONDISI 2: Button Mati (Disabled) --}}
+                    <button disabled
+                        title="Anda belum melengkapi data (Nama, Logo, atau Deskripsi). Silakan lengkapi profil terlebih dahulu."
+                        class="px-4 py-2 text-sm font-medium text-slate-400 bg-slate-200 border border-transparent rounded-lg cursor-not-allowed">
+                        + Tambah Lowongan
+                    </button>
+                    @endif
                 </div>
 
                 <div class="p-6 bg-white">
@@ -43,9 +55,9 @@
                             <thead class="bg-slate-50">
                                 <tr>
                                     <th class="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Posisi / Judul</th>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Tipe</th>
                                     <th class="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Status</th>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Tanggal</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Tanggal Upload</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Tanggal Expired</th>
                                     <th class="px-6 py-3 text-right text-xs font-medium text-slate-500 uppercase tracking-wider">Aksi</th>
                                 </tr>
                             </thead>
@@ -57,19 +69,21 @@
                                         <div class="text-xs text-slate-500">{{ $job->location ?? 'Lokasi Kosong' }}</div>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
-                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">
-                                            {{ $job->type ?? 'Full Time' }}
-                                        </span>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        @if($job->status == 'active' || $job->status == 'aktif')
-                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Aktif</span>
-                                        @else
-                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gray-100 text-gray-800">Tutup</span>
-                                        @endif
+                                        @if($job->expires_at < now())
+                                            <span class="px-2 py-1 rounded-full text-xs font-bold bg-red-100 text-red-700">
+                                            Berakhir
+                                            </span>
+                                            @else
+                                            <span class="px-2 py-1 rounded-full text-xs font-bold bg-green-100 text-green-700">
+                                                Aktif
+                                            </span>
+                                            @endif
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-slate-500">
                                         {{ $job->created_at->format('d M Y') }}
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-slate-500">
+                                        {{ $job->expires_at->format('d M Y') }}
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                         <div class="flex justify-end items-center gap-3">

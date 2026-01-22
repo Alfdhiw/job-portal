@@ -43,7 +43,7 @@
                                 {{-- Nama Perusahaan --}}
                                 <div>
                                     <label class="block font-semibold text-sm text-slate-700 mb-2">Nama Perusahaan</label>
-                                    <input type="text" name="company_name" value="{{ old('company_name', $job->company_name) }}" class="w-full rounded-xl border-slate-200 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 py-3 px-4 text-slate-700" required>
+                                    <input type="text" name="company_name" value="{{ $employer->name }}" class="w-full rounded-xl border-slate-200 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 py-3 px-4 text-slate-700 cursor-not-allowed" readonly>
                                 </div>
 
                                 {{-- Departemen --}}
@@ -86,9 +86,17 @@
 
                             <div class="space-y-6">
                                 {{-- Deskripsi --}}
-                                <div>
+                                <div class="mb-6">
                                     <label class="block font-semibold text-sm text-slate-700 mb-2">Deskripsi Pekerjaan</label>
-                                    <textarea name="description" rows="6" class="w-full rounded-xl border-slate-200 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 py-3 px-4 text-slate-700" required>{{ old('description', $job->description) }}</textarea>
+
+                                    {{-- Wrapper div untuk editor --}}
+                                    <div class="prose max-w-none">
+                                        <textarea name="description" id="job_editor">{{ old('description', $job->description) }}</textarea>
+                                    </div>
+
+                                    @error('description')
+                                    <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                                    @enderror
                                 </div>
 
                                 {{-- Gaji --}}
@@ -118,17 +126,15 @@
                                 <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 border-dashed">
                                     <label class="block font-semibold text-sm text-slate-700 mb-3">Logo Perusahaan</label>
 
-                                    @if($job->company_logo)
+                                    @if($employer->logo)
                                     <div class="flex items-center gap-4 mb-4 bg-white p-2 rounded-lg border border-slate-100 shadow-sm">
-                                        <img src="{{ asset('storage/' . $job->company_logo) }}" alt="Current Logo" class="h-14 w-14 object-cover rounded-lg">
+                                        <img src="{{ asset('storage/' . $employer->logo) }}" alt="Current Logo" class="h-14 w-14 object-cover rounded-lg">
                                         <div>
                                             <p class="text-xs font-semibold text-slate-500 uppercase tracking-wide">Logo Saat Ini</p>
-                                            <p class="text-xs text-slate-400">Akan diganti jika Anda mengupload baru.</p>
+                                            <p class="text-xs text-slate-400">Hanya bisa diganti melalui portal edit perusahaan.</p>
                                         </div>
                                     </div>
                                     @endif
-
-                                    <input type="file" name="company_logo" class="block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100 transition cursor-pointer">
                                 </div>
 
                                 {{-- Tanggal --}}
@@ -147,7 +153,7 @@
 
                         {{-- Footer Buttons --}}
                         <div class="pt-6 border-t border-slate-100 flex items-center justify-end gap-3">
-                            <a href="{{ route('jobs.index') }}" class="px-5 py-2.5 rounded-xl text-slate-600 font-semibold hover:bg-slate-100 hover:text-slate-800 transition">
+                            <a href="{{ route('jobs.list') }}" class="px-5 py-2.5 rounded-xl text-slate-600 font-semibold hover:bg-slate-100 hover:text-slate-800 transition">
                                 Batal
                             </a>
                             <button type="submit" class="inline-flex items-center px-6 py-2.5 bg-indigo-600 border border-transparent rounded-xl font-bold text-sm text-white hover:bg-indigo-700 focus:bg-indigo-700 active:bg-indigo-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150 shadow-lg shadow-indigo-100 hover:shadow-xl transform hover:-translate-y-0.5">

@@ -40,7 +40,33 @@
 
                 <p class="px-4 text-xs font-bold text-indigo-400 uppercase tracking-wider mb-3">Menu Utama</p>
 
-                {{-- Dashboard Link (Active State tetap terang) --}}
+                {{-- MENU KHUSUS SUPER ADMIN --}}
+                {{-- PERBAIKAN 1: Pastikan role sesuai database ('super_admin') --}}
+                @if(auth()->user()->role === 'superadmin')
+
+                {{-- 1. Dashboard Admin --}}
+                <a href="{{ route('superadmin.dashboard') }}"
+                    class="flex items-center px-4 py-3 text-sm font-medium rounded-xl transition-all duration-200 group {{ request()->routeIs('superadmin.dashboard') ? 'bg-indigo-600 text-white shadow-md shadow-indigo-900/30' : 'text-indigo-200 hover:bg-indigo-800 hover:text-white' }}">
+                    <svg class="w-5 h-5 mr-3 {{ request()->routeIs('superadmin.dashboard') ? 'text-white' : 'text-indigo-400 group-hover:text-white' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path>
+                    </svg>
+                    Dashboard Admin
+                </a>
+
+                {{-- 2. Kelola User --}}
+                {{-- PERBAIKAN 2: RouteIs diarahkan ke superadmin.users --}}
+                <a href="{{ route('superadmin.users') }}"
+                    class="flex items-center px-4 py-3 text-sm font-medium rounded-xl transition-all duration-200 group {{ request()->routeIs('superadmin.users*') ? 'bg-indigo-600 text-white shadow-md shadow-indigo-900/30' : 'text-indigo-200 hover:bg-indigo-800 hover:text-white' }}">
+                    <svg class="w-5 h-5 mr-3 {{ request()->routeIs('superadmin.users*') ? 'text-white' : 'text-indigo-400 group-hover:text-white' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path>
+                    </svg>
+                    Kelola User
+                </a>
+
+                @else
+                {{-- MENU UNTUK USER BIASA (Employer) --}}
+
+                {{-- 1. Dashboard Employer --}}
                 <a href="{{ route('dashboard') }}"
                     class="flex items-center px-4 py-3 text-sm font-medium rounded-xl transition-all duration-200 group {{ request()->routeIs('dashboard') ? 'bg-indigo-600 text-white shadow-md shadow-indigo-900/30' : 'text-indigo-200 hover:bg-indigo-800 hover:text-white' }}">
                     <svg class="w-5 h-5 mr-3 {{ request()->routeIs('dashboard') ? 'text-white' : 'text-indigo-400 group-hover:text-white' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -48,7 +74,8 @@
                     </svg>
                     Dashboard
                 </a>
-                {{-- Lowongan Link (Active State tetap terang) --}}
+
+                {{-- 2. Lowongan --}}
                 <a href="{{ route('jobs.list') }}"
                     class="flex items-center px-4 py-3 text-sm font-medium rounded-xl transition-all duration-200 group {{ request()->routeIs('jobs.*') ? 'bg-indigo-600 text-white shadow-md shadow-indigo-900/30' : 'text-indigo-200 hover:bg-indigo-800 hover:text-white' }}">
                     <svg class="w-5 h-5 mr-3 {{ request()->routeIs('jobs.*') ? 'text-white' : 'text-indigo-400 group-hover:text-white' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -57,13 +84,24 @@
                     Lowongan
                 </a>
 
-                {{-- Link Lainnya (Inactive State disesuaikan dengan background baru) --}}
-                <a href="{{ route('employer.candidates') }}" class="flex items-center px-4 py-3 text-sm font-medium {{ request()->routeIs('employer.candidates') ? 'bg-indigo-800 text-white' : 'text-indigo-200 hover:bg-indigo-800 hover:text-white' }} rounded-xl transition-all duration-200 group">
-                    <svg class="w-5 h-5 mr-3 {{ request()->routeIs('employer.candidates') ? 'text-white' : 'text-indigo-400 group-hover:text-white' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                {{-- 3. Kandidat --}}
+                {{-- PERBAIKAN 3: Menambahkan employer.show agar menu tetap menyala saat liat detail --}}
+                <a href="{{ route('employer.candidates') }}"
+                    class="flex items-center px-4 py-3 text-sm font-medium rounded-xl transition-all duration-200 group {{ request()->routeIs('employer.candidates', 'employer.show') ? 'bg-indigo-600 text-white shadow-md shadow-indigo-900/30' : 'text-indigo-200 hover:bg-indigo-800 hover:text-white' }}">
+                    <svg class="w-5 h-5 mr-3 {{ request()->routeIs('employer.candidates', 'employer.show') ? 'text-white' : 'text-indigo-400 group-hover:text-white' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
                     </svg>
                     Kandidat
                 </a>
+                {{-- 4. Pengaturan Profile --}}
+                <a href="{{ route('profile.edit') }}"
+                    class="flex items-center px-4 py-3 text-sm font-medium rounded-xl transition-all duration-200 group {{ request()->routeIs('profile.edit') ? 'bg-indigo-600 text-white shadow-md shadow-indigo-900/30' : 'text-indigo-200 hover:bg-indigo-800 hover:text-white' }}">
+                    <svg class="w-5 h-5 mr-3 {{ request()->routeIs('profile.edit') ? 'text-white' : 'text-indigo-400 group-hover:text-white' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                    </svg>
+                    Pengaturan
+                </a>
+                @endif
             </nav>
 
             {{-- USER PROFILE FOOTER --}}
@@ -114,15 +152,6 @@
                         <h1 class="text-lg font-bold text-slate-800">Dashboard Utama</h1>
                         @endif
                     </div>
-                </div>
-
-                <div class="flex items-center gap-4">
-                    <button class="text-slate-400 hover:text-indigo-600 transition relative">
-                        <span class="absolute top-0 right-0 h-2 w-2 rounded-full bg-red-500 ring-2 ring-white"></span>
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path>
-                        </svg>
-                    </button>
                 </div>
             </header>
 
@@ -230,6 +259,78 @@
         </div>
     </div>
     @endif
+
+    <script src="https://cdn.ckeditor.com/ckeditor5/40.0.0/classic/ckeditor.js"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            ClassicEditor
+                .create(document.querySelector('#editor'), {
+                    // Opsi Toolbar (Opsional: Bisa disesuaikan)
+                    toolbar: ['heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote', 'undo', 'redo'],
+                    heading: {
+                        options: [{
+                                model: 'paragraph',
+                                title: 'Paragraph',
+                                class: 'ck-heading_paragraph'
+                            },
+                            {
+                                model: 'heading1',
+                                view: 'h1',
+                                title: 'Heading 1',
+                                class: 'ck-heading_heading1'
+                            },
+                            {
+                                model: 'heading2',
+                                view: 'h2',
+                                title: 'Heading 2',
+                                class: 'ck-heading_heading2'
+                            }
+                        ]
+                    }
+                })
+                .then(editor => {
+                    console.log('Editor berhasil dimuat', editor);
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+            ClassicEditor
+                .create(document.querySelector('#job_editor'), { // Pastikan ID ini sama dengan di textarea
+                    toolbar: ['heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote', 'undo', 'redo'],
+                    heading: {
+                        options: [{
+                                model: 'paragraph',
+                                title: 'Paragraph',
+                                class: 'ck-heading_paragraph'
+                            },
+                            {
+                                model: 'heading1',
+                                view: 'h1',
+                                title: 'Heading 1',
+                                class: 'ck-heading_heading1'
+                            },
+                            {
+                                model: 'heading2',
+                                view: 'h2',
+                                title: 'Heading 2',
+                                class: 'ck-heading_heading2'
+                            }
+                        ]
+                    }
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+        });
+    </script>
+
+    {{-- Style Tambahan untuk Menyesuaikan Tinggi --}}
+    <style>
+        .ck-editor__editable_inline {
+            min-height: 200px;
+        }
+    </style>
 </body>
 
 </html>

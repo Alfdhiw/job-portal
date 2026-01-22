@@ -91,11 +91,11 @@
 
                     <div class="relative z-10 flex flex-col sm:flex-row items-start gap-6">
                         <div class="flex-shrink-0">
-                            @if($job->company_logo)
-                            <img class="h-20 w-20 rounded-2xl object-contain bg-white border border-slate-100 shadow-sm" src="{{ asset('storage/' . $job->company_logo) }}" alt="Logo">
+                            @if($job->employer && $job->employer->logo)
+                            <img class="h-20 w-20 rounded-2xl object-contain bg-white border border-slate-100 shadow-xl" src="{{ asset('storage/' . $job->employer->logo) }}" alt="Logo">
                             @else
                             <div class="h-20 w-20 rounded-2xl bg-gradient-to-br from-primary-500 to-purple-600 flex items-center justify-center text-white font-bold text-3xl shadow-lg shadow-primary-200">
-                                {{ substr($job->company_name, 0, 1) }}
+                                {{ substr($job->employer->name, 0, 1) }}
                             </div>
                             @endif
                         </div>
@@ -106,7 +106,7 @@
                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
                                     </svg>
-                                    {{ $job->company_name }}
+                                    {{ $job->employer->name }}
                                 </span>
                                 <span class="w-1 h-1 bg-slate-300 rounded-full"></span>
                                 <span class="flex items-center gap-1">
@@ -122,7 +122,7 @@
                 </div>
 
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                    <div class="bg-white p-4 rounded-2xl border border-slate-100 shadow-sm flex flex-col items-center text-center gap-2 hover:-translate-y-1 transition duration-300">
+                    <div class="bg-white p-4 rounded-2xl border border-slate-100 shadow-xl flex flex-col items-center text-center gap-2 hover:-translate-y-1 transition duration-300">
                         <div class="w-10 h-10 rounded-full bg-green-50 text-green-600 flex items-center justify-center">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
@@ -130,21 +130,10 @@
                         </div>
                         <div>
                             <p class="text-xs text-slate-400 font-medium">Gaji</p>
-                            <p class="text-sm font-bold text-slate-800">{{ $job->salary ?? 'Hidden' }}</p>
+                            <p class="text-sm font-bold text-slate-800">{{ $job->salary ? 'Rp ' . number_format($job->salary, 0, ',', '.') : 'Gaji Disembunyikan' }}</p>
                         </div>
                     </div>
-                    <div class="bg-white p-4 rounded-2xl border border-slate-100 shadow-sm flex flex-col items-center text-center gap-2 hover:-translate-y-1 transition duration-300">
-                        <div class="w-10 h-10 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
-                            </svg>
-                        </div>
-                        <div>
-                            <p class="text-xs text-slate-400 font-medium">Tipe</p>
-                            <p class="text-sm font-bold text-slate-800">Full Time</p>
-                        </div>
-                    </div>
-                    <div class="bg-white p-4 rounded-2xl border border-slate-100 shadow-sm flex flex-col items-center text-center gap-2 hover:-translate-y-1 transition duration-300">
+                    <div class="bg-white p-4 rounded-2xl border border-slate-100 shadow-xl flex flex-col items-center text-center gap-2 hover:-translate-y-1 transition duration-300">
                         <div class="w-10 h-10 rounded-full bg-purple-50 text-purple-600 flex items-center justify-center">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
@@ -155,7 +144,7 @@
                             <p class="text-sm font-bold text-slate-800">{{ $job->department }}</p>
                         </div>
                     </div>
-                    <div class="bg-white p-4 rounded-2xl border border-slate-100 shadow-sm flex flex-col items-center text-center gap-2 hover:-translate-y-1 transition duration-300">
+                    <div class="bg-white p-4 rounded-2xl border border-slate-100 shadow-xl flex flex-col items-center text-center gap-2 hover:-translate-y-1 transition duration-300">
                         <div class="w-10 h-10 rounded-full bg-red-50 text-red-600 flex items-center justify-center">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
@@ -168,10 +157,11 @@
                     </div>
                 </div>
 
-                <div class="bg-white rounded-3xl p-8 border border-slate-100 shadow-sm">
+                <div class="bg-white rounded-3xl p-8 border border-slate-100 shadow-xl">
                     <h3 class="text-xl font-bold text-slate-900 mb-6 border-b border-slate-100 pb-4">Deskripsi Pekerjaan</h3>
+
                     <div class="prose prose-slate prose-lg max-w-none text-slate-600 leading-relaxed">
-                        {!! nl2br(e($job->description)) !!}
+                        {!! $job->description !!}
                     </div>
                 </div>
 
@@ -203,16 +193,28 @@
                         <form action="{{ route('job.apply', $job) }}" method="POST" enctype="multipart/form-data" class="p-6 space-y-5">
                             @csrf
 
+                            {{-- Input Nama Lengkap (Read Only) --}}
                             <div>
                                 <label for="full_name" class="block text-sm font-semibold text-slate-700 mb-1">Nama Lengkap</label>
-                                <input type="text" name="full_name" id="full_name" placeholder="John Doe" required
-                                    class="w-full px-4 py-2.5 rounded-xl border border-slate-300 bg-slate-50 focus:bg-white focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all outline-none">
+                                <input
+                                    type="text"
+                                    name="full_name"
+                                    id="full_name"
+                                    value="{{ auth()->user()->name ?? '' }}"
+                                    readonly
+                                    class="w-full px-4 py-2.5 rounded-xl border border-slate-300 bg-slate-200 text-slate-500 cursor-not-allowed focus:outline-none select-none">
                             </div>
 
+                            {{-- Input Email (Read Only) --}}
                             <div>
                                 <label for="email" class="block text-sm font-semibold text-slate-700 mb-1">Email</label>
-                                <input type="email" name="email" id="email" placeholder="john@example.com" required
-                                    class="w-full px-4 py-2.5 rounded-xl border border-slate-300 bg-slate-50 focus:bg-white focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all outline-none">
+                                <input
+                                    type="email"
+                                    name="email"
+                                    id="email"
+                                    value="{{ auth()->user()->email ?? '' }}"
+                                    readonly
+                                    class="w-full px-4 py-2.5 rounded-xl border border-slate-300 bg-slate-200 text-slate-500 cursor-not-allowed focus:outline-none select-none">
                             </div>
 
                             <div x-data="{ fileName: '' }">
@@ -225,17 +227,17 @@
                                         <p class="text-sm text-slate-500 group-hover:text-primary-600 transition-colors"><span class="font-semibold">Klik untuk upload</span></p>
                                         <p class="text-xs text-slate-400 mt-1" x-text="fileName ? fileName : 'Maks. 2MB (PDF)'"></p>
                                     </div>
-                                    <input type="file" name="cv" accept=".pdf" class="hidden" required @change="fileName = $event.target.files[0].name">
+                                    <input type="file" name="cv" accept=".pdf" class="hidden" @change="fileName = $event.target.files[0].name">
                                 </label>
                             </div>
 
                             <div x-data="{ fileName: '' }">
                                 <label class="block text-sm font-semibold text-slate-700 mb-1">Foto KTP</label>
                                 <div class="relative">
-                                    <input type="file" name="ktp" id="ktp" accept="image/*" required class="hidden" @change="fileName = $event.target.files[0].name">
+                                    <input type="file" name="ktp" id="ktp" accept="image/*" class="hidden" @change="fileName = $event.target.files[0].name">
                                     <label for="ktp" class="flex items-center justify-between px-4 py-2.5 border border-slate-300 rounded-xl bg-slate-50 cursor-pointer hover:bg-white focus-within:ring-2 focus-within:ring-primary-500 transition-all">
                                         <span class="text-sm text-slate-500 truncate" x-text="fileName ? fileName : 'Pilih file gambar...'"></span>
-                                        <span class="bg-white border border-slate-200 text-slate-600 text-xs font-semibold px-2 py-1 rounded shadow-sm">Browse</span>
+                                        <span class="bg-white border border-slate-200 text-slate-600 text-xs font-semibold px-2 py-1 rounded shadow-xl">Browse</span>
                                     </label>
                                 </div>
                             </div>

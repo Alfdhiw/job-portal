@@ -67,5 +67,13 @@
                 </a>
             </p>
         </div>
+        <div class="mt-1 text-center border-t border-gray-100 pt-4">
+            <p class="text-sm text-gray-600">
+                Ingin merekrut pegawai?
+                <a href="{{ route('register.employer') }}" class="font-bold text-indigo-600 hover:text-indigo-900">
+                    Daftar sebagai Perusahaan
+                </a>
+            </p>
+        </div>
     </form>
 </x-guest-layout>
