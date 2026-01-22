@@ -37,19 +37,19 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-24 pb-12">
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
 
-            {{-- KOLOM KIRI: Informasi Utama & Dokumen --}}
+            
             <div class="lg:col-span-2 space-y-6">
 
-                {{-- Card 1: Quick Actions (Tombol Aksi) --}}
+               
                 <div class="bg-white rounded-2xl shadow-xl shadow-slate-200/50 p-6 border border-slate-100">
                     <h3 class="text-lg font-semibold text-slate-800 mb-4">Proses Lamaran</h3>
                     <div class="flex flex-wrap gap-3">
-                        {{-- Bungkus area ini dengan Alpine x-data --}}
+                        
                         <div x-data="{ showModal: false }">
 
-                            {{-- 1. TOMBOL TRIGGER (Yang sudah ada, dimodifikasi sedikit) --}}
+                            
                             <div class="flex items-center">
-                                {{-- STATUS: PENDING (Tombol Aktif) --}}
+                                
                                 @if($application->status == 'pending')
                                 <button
                                     @click="showModal = true"
@@ -61,7 +61,6 @@
                                     Jadwalkan Interview
                                 </button>
 
-                                {{-- STATUS: INTERVIEW (Menunggu Kandidat) --}}
                                 @elseif($application->status == 'interview')
                                 <div class="px-5 py-2.5 bg-amber-50 text-amber-700 border border-amber-200 rounded-xl font-medium text-sm flex items-center gap-2 cursor-default">
                                     <svg class="w-4 h-4 animate-pulse" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -70,7 +69,7 @@
                                     <span>Menunggu Konfirmasi</span>
                                 </div>
 
-                                {{-- STATUS: CONFIRMED (Sudah Oke) --}}
+                               
                                 @elseif($application->status == 'confirmed')
                                 <div class="px-5 py-2.5 bg-emerald-50 text-emerald-700 border border-emerald-200 rounded-xl font-medium text-sm flex items-center gap-2 cursor-default">
                                     <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -81,7 +80,7 @@
                                 @endif
                             </div>
 
-                            {{-- 2. MODAL POP-UP (Overlay & Content) --}}
+                    
                             <div
                                 x-show="showModal"
                                 style="display: none;"
@@ -89,7 +88,7 @@
                                 aria-labelledby="modal-title"
                                 role="dialog"
                                 aria-modal="true">
-                                {{-- Background Backdrop (Gelap & Fade effect) --}}
+                               
                                 <div
                                     x-show="showModal"
                                     x-transition:enter="ease-out duration-300"
@@ -101,7 +100,7 @@
                                     class="fixed inset-0 bg-slate-900/75 backdrop-blur-sm transition-opacity"
                                     @click="showModal = false"></div>
 
-                                {{-- Modal Panel (Tengah Layar) --}}
+                               
                                 <div class="flex min-h-full items-center justify-center p-4 text-center sm:p-0">
                                     <div
                                         x-show="showModal"
@@ -113,11 +112,11 @@
                                         x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
                                         class="relative transform overflow-hidden rounded-2xl bg-white text-left shadow-2xl transition-all sm:my-8 sm:w-full sm:max-w-lg border border-indigo-100">
 
-                                        {{-- Form Mulai --}}
+                                        
                                         <form action="{{ route('employer.store', $application->id) }}" method="POST">
                                             @csrf
 
-                                            {{-- Header Modal --}}
+                                           
                                             <div class="bg-indigo-600 px-4 py-4 sm:px-6">
                                                 <div class="flex items-center justify-between">
                                                     <h3 class="text-lg font-bold leading-6 text-white flex items-center gap-2" id="modal-title">
@@ -135,17 +134,16 @@
                                                 <p class="mt-1 text-sm text-indigo-100">Kirim detail jadwal interview ke email kandidat.</p>
                                             </div>
 
-                                            {{-- Body Modal --}}
                                             <div class="px-4 py-6 sm:p-6 space-y-5">
 
-                                                {{-- Input Tanggal --}}
+                                                
                                                 <div>
                                                     <label for="interview_date" class="block text-sm font-semibold text-slate-700">Tanggal & Waktu</label>
                                                     <input type="datetime-local" name="interview_date" id="interview_date" required
                                                         class="mt-1 block w-full rounded-xl border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm py-2.5 px-3 border bg-slate-50">
                                                 </div>
 
-                                                {{-- Input Pesan Tambahan --}}
+                                                
                                                 <div>
                                                     <label for="message" class="block text-sm font-semibold text-slate-700">Pesan Undangan</label>
                                                     <div class="mt-1">
@@ -157,7 +155,7 @@
                                                 </div>
                                             </div>
 
-                                            {{-- Footer Modal --}}
+                                           
                                             <div class="bg-slate-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6 border-t border-slate-100">
                                                 <button type="submit" class="inline-flex w-full justify-center rounded-xl bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 sm:ml-3 sm:w-auto transition hover:shadow-lg shadow-indigo-600/30">
                                                     Kirim Undangan
@@ -174,7 +172,7 @@
                     </div>
                 </div>
 
-                {{-- Card 2: CV / Resume Preview --}}
+                
                 <div class="bg-white rounded-2xl shadow-xl shadow-slate-200/50 p-8 border border-slate-100">
                     <div class="flex items-center justify-between mb-6">
                         <h3 class="text-xl font-bold text-slate-900 flex items-center gap-2">
@@ -212,7 +210,7 @@
                     </div>
                 </div>
 
-                {{-- Card 3: Foto KTP (Jika ada) --}}
+               
                 @if(isset($application->ktp_path) || isset($application->ktp))
                 <div class="bg-white rounded-2xl shadow-xl shadow-slate-200/50 p-8 border border-slate-100">
                     <h3 class="text-xl font-bold text-slate-900 mb-6 flex items-center gap-2">
@@ -229,10 +227,10 @@
                 @endif
             </div>
 
-            {{-- KOLOM KANAN: Sidebar Info --}}
+            
             <div class="lg:col-span-1 space-y-6">
 
-                {{-- Card Kontak --}}
+               
                 <div class="bg-white rounded-2xl shadow-xl shadow-slate-200/50 p-6 border border-slate-100">
                     <h3 class="text-sm font-bold text-slate-400 uppercase tracking-wider mb-4">Informasi Kontak</h3>
 
@@ -262,7 +260,7 @@
                     </div>
                 </div>
 
-                {{-- Card Meta Data --}}
+                
                 <div class="bg-white rounded-2xl shadow-xl shadow-slate-200/50 p-6 border border-slate-100">
                     <h3 class="text-sm font-bold text-slate-400 uppercase tracking-wider mb-4">Meta Data</h3>
 

@@ -7,21 +7,21 @@
         </div>
     </x-slot>
 
-    {{-- Container Utama: Hapus bg-slate-50 disini karena sudah ada di Layout --}}
+   
     <div class="py-12">
         <div class="max-w-3xl mx-auto sm:px-6 lg:px-8">
-            {{-- CARD UTAMA: Shadow dipertebal (2xl) & Border Indigo Tipis agar kontras --}}
+            
             <div class="bg-white overflow-hidden shadow-2xl shadow-indigo-200/40 rounded-[2rem] border border-indigo-100 relative">
                 
-                {{-- Aksen Dekoratif Atas --}}
+                
                 <div class="h-1.5 w-full bg-gradient-to-r from-indigo-500 to-indigo-700"></div>
 
                 <div class="p-8 md:p-12">
                     
-                    {{-- Header Form --}}
+                   
                     <div class="flex flex-col md:flex-row md:items-center gap-6 mb-10 border-b border-slate-100 pb-8">
                         <div class="h-20 w-20 rounded-3xl bg-primary-50 border-2 border-indigo-100 flex items-center justify-center text-indigo-600 shadow-inner flex-shrink-0">
-                            {{-- Icon Avatar Besar --}}
+                           
                             <span class="text-3xl font-black">{{ substr($user->name, 0, 1) }}</span>
                         </div>
                         <div>
@@ -34,9 +34,9 @@
                         @csrf
                         @method('PUT')
 
-                        {{-- Section 1: Informasi Dasar --}}
+                       
                         <div class="grid grid-cols-1 gap-6">
-                            {{-- Nama Lengkap --}}
+                           
                             <div class="group">
                                 <x-input-label for="name" :value="__('Nama Lengkap')" class="text-slate-700 font-bold ml-1 mb-2 uppercase text-xs tracking-wider" />
                                 <div class="relative">
@@ -50,7 +50,7 @@
                                 <x-input-error :messages="$errors->get('name')" class="mt-2 ml-2" />
                             </div>
 
-                            {{-- Email --}}
+                           
                             <div class="group">
                                 <x-input-label for="email" :value="__('Alamat Email')" class="text-slate-700 font-bold ml-1 mb-2 uppercase text-xs tracking-wider" />
                                 <div class="relative">
@@ -64,7 +64,7 @@
                                 <x-input-error :messages="$errors->get('email')" class="mt-2 ml-2" />
                             </div>
 
-                            {{-- Role --}}
+                           
                             <div class="group">
                                 <x-input-label for="role" :value="__('Hak Akses (Role)')" class="text-slate-700 font-bold ml-1 mb-2 uppercase text-xs tracking-wider" />
                                 <div class="relative">
@@ -84,7 +84,7 @@
                             </div>
                         </div>
 
-                        {{-- Section 2: Password (Box Terpisah) --}}
+                       
                         <div class="mt-10 pt-6 border-t border-slate-100">
                             <div class="bg-primary-50/50 rounded-3xl p-6 md:p-8 border border-indigo-100/60">
                                 <div class="flex items-start gap-4 mb-6">
@@ -112,7 +112,7 @@
                             </div>
                         </div>
 
-                        {{-- Action Buttons --}}
+                       
                         <div class="pt-6">
                             <button type="submit" class="w-full bg-primary-600 hover:bg-primary-700 text-white font-bold text-lg py-4 px-8 rounded-2xl shadow-xl shadow-indigo-200 hover:shadow-indigo-300 transition-all duration-300 transform hover:-translate-y-1 active:scale-[0.98]">
                                 Simpan Perubahan
@@ -123,7 +123,7 @@
                 </div>
             </div>
             
-            {{-- Footer Info Kecil --}}
+            
             <div class="mt-6 text-center">
                  <p class="text-xs text-slate-400">Terakhir diperbarui: {{ $user->updated_at->diffForHumans() }}</p>
             </div>

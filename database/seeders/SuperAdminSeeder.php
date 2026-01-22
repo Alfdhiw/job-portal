@@ -26,7 +26,7 @@ class SuperAdminSeeder extends Seeder
 
             $this->command->info('✅ Akun Super Admin berhasil dibuat!');
             $this->command->info('Email: super@admin.com');
-            $this->command->info('Pass : password123');
+            $this->command->info('Pass : password');
         } else {
             $this->command->warn('⚠️ Akun Super Admin sudah ada.');
         }

@@ -15,17 +15,15 @@ Route::get('/job/{job}', [PublicController::class, 'show'])->name('job.show');
 Route::get('/lowongan', [PublicController::class, 'search'])->name('public.jobs');
 Route::post('/job/{job}/apply', [PublicController::class, 'apply'])->name('job.apply');
 Route::get('/lamaran/{id}/konfirmasi', [PublicController::class, 'confirmInterview'])->name('email.confirmed');
-// === TAMBAHAN REGISTER EMPLOYER ===
-Route::get('register/employer', [EmployerRegisterController::class, 'create'])
-    ->name('register.employer');
-
+Route::get('register/employer', [EmployerRegisterController::class, 'create'])->name('register.employer');
 Route::post('register/employer', [EmployerRegisterController::class, 'store']);
 
+// Protected Routes
 Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('/dashboard', [JobController::class, 'index'])->name('dashboard');
 
-    // ROUTE KHUSUS ADMIN
+    // ROUTE KHUSUS EMPLOYER
     Route::middleware('admin')->group(function () {
         Route::resource('jobs', JobController::class);
         Route::get('/list', [JobController::class, 'list'])->name('jobs.list');
@@ -54,10 +52,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
             Route::delete('/users/{id}', [SuperAdminController::class, 'destroyUser'])->name('users.destroy');
         });
 
+    // ROUTE PROFIL USER (CANDIDATE)
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
+    // ROUTE PROFIL CANDIDATE
     Route::get('/my-profile', [CandidateProfileController::class, 'edit'])->name('candidate.profile');
     Route::put('/my-profile', [CandidateProfileController::class, 'update'])->name('candidate.profile.update');
     Route::put('/my-profile/password', [CandidateProfileController::class, 'updatePassword'])->name('candidate.password.update');

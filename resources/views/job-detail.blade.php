@@ -40,7 +40,7 @@
             -webkit-backdrop-filter: blur(12px);
         }
 
-        /* Custom Scrollbar */
+        
         ::-webkit-scrollbar {
             width: 8px;
         }

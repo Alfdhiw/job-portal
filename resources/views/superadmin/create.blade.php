@@ -10,18 +10,18 @@
     <div class="py-12">
         <div class="max-w-3xl mx-auto sm:px-6 lg:px-8">
 
-            {{-- MAIN CARD --}}
+           
             <div class="bg-white overflow-hidden shadow-2xl shadow-indigo-200/40 rounded-[2rem] border border-indigo-100 relative">
 
-                {{-- Decorative Top Bar --}}
+                
                 <div class="h-1.5 w-full bg-gradient-to-r from-indigo-500 to-indigo-700"></div>
 
                 <div class="p-8 md:p-12">
 
-                    {{-- Header Form --}}
+                   
                     <div class="flex flex-col md:flex-row md:items-center gap-6 mb-10 border-b border-slate-100 pb-8">
                         <div class="h-20 w-20 rounded-3xl bg-primary-50 border-2 border-indigo-100 flex items-center justify-center text-indigo-600 shadow-inner flex-shrink-0">
-                            {{-- Icon Plus User --}}
+                           
                             <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
                             </svg>
@@ -35,9 +35,9 @@
                     <form method="POST" action="{{ route('superadmin.users.store') }}" class="space-y-6">
                         @csrf
 
-                        {{-- Section 1: Identitas --}}
+                       
                         <div class="space-y-6">
-                            {{-- Nama Lengkap --}}
+                           
                             <div class="group">
                                 <x-input-label for="name" :value="__('Nama Lengkap')" class="text-slate-700 font-bold ml-1 mb-2 uppercase text-xs tracking-wider" />
                                 <div class="relative">
@@ -53,7 +53,7 @@
                                 <x-input-error :messages="$errors->get('name')" class="mt-2 ml-2" />
                             </div>
 
-                            {{-- Email --}}
+                            
                             <div class="group">
                                 <x-input-label for="email" :value="__('Alamat Email')" class="text-slate-700 font-bold ml-1 mb-2 uppercase text-xs tracking-wider" />
                                 <div class="relative">
@@ -69,7 +69,7 @@
                                 <x-input-error :messages="$errors->get('email')" class="mt-2 ml-2" />
                             </div>
 
-                            {{-- Role --}}
+                           
                             <div class="group">
                                 <x-input-label for="role" :value="__('Hak Akses (Role)')" class="text-slate-700 font-bold ml-1 mb-2 uppercase text-xs tracking-wider" />
                                 <div class="relative">
@@ -93,7 +93,7 @@
                             </div>
                         </div>
 
-                        {{-- Section 2: Password (Grid) --}}
+                       
                         <div class="pt-6 border-t border-slate-100">
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 {{-- Password --}}
@@ -130,7 +130,7 @@
                             </div>
                         </div>
 
-                        {{-- Action Buttons --}}
+                       
                         <div class="pt-6 mt-6 border-t border-slate-100">
                             <button type="submit" class="w-full bg-primary-600 hover:bg-primary-700 text-white font-bold text-lg py-4 px-8 rounded-2xl shadow-xl shadow-indigo-200 hover:shadow-indigo-300 transition-all duration-300 transform hover:-translate-y-1 active:scale-[0.98]">
                                 {{ __('Simpan User Baru') }}

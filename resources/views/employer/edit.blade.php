@@ -18,10 +18,10 @@
                 @csrf
 
                 <div class="bg-white overflow-hidden shadow-xl rounded-3xl border border-slate-100 relative">
-                    {{-- Dekorasi Atas --}}
+                    
                     <div class="absolute top-0 left-0 w-full h-1 bg-indigo-500"></div>
 
-                    {{-- Header Section --}}
+                   
                     <div class="px-8 py-6 border-b border-slate-100 bg-slate-50/30 flex items-center justify-between flex-wrap gap-4">
                         <div>
                             <h3 class="text-lg font-bold text-slate-800">Informasi Publik</h3>
@@ -34,12 +34,12 @@
                     <div class="p-8">
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
 
-                            {{-- KOLOM KIRI: Upload Logo --}}
+                           
                             <div class="md:col-span-1 space-y-4">
                                 <label class="block font-bold text-sm text-slate-700">Logo Perusahaan</label>
 
                                 <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200 border-dashed text-center">
-                                    {{-- Preview Logic --}}
+                                    
                                     @if($employer->logo)
                                     <div class="mx-auto h-32 w-32 bg-white p-2 rounded-xl shadow-sm border border-slate-100 mb-4 flex items-center justify-center relative group overflow-hidden">
                                         <img src="{{ asset('storage/' . $employer->logo) }}" alt="Current Logo" class="max-h-full max-w-full object-contain">
@@ -54,7 +54,7 @@
                                     <p class="text-xs text-slate-400 mb-2">Belum ada logo</p>
                                     @endif
 
-                                    {{-- File Input --}}
+                                    
                                     <input type="file" name="logo" class="block w-full text-xs text-slate-500
                                         file:mr-4 file:py-2 file:px-4
                                         file:rounded-full file:border-0
@@ -68,9 +68,9 @@
                                 </div>
                             </div>
 
-                            {{-- KOLOM KANAN: Form Input --}}
+                            
                             <div class="md:col-span-2 space-y-6">
-                                {{-- Nama Perusahaan --}}
+                               
                                 <div>
                                     <label class="block font-semibold text-sm text-slate-700 mb-2">Nama Perusahaan <span class="text-red-500">*</span></label>
                                     <input type="text" name="name" value="{{ old('name', $employer->name) }}"
@@ -79,7 +79,7 @@
                                     @error('name') <span class="text-red-500 text-xs mt-1 block">{{ $message }}</span> @enderror
                                 </div>
 
-                                {{-- Website --}}
+                                
                                 <div>
                                     <label class="block font-semibold text-sm text-slate-700 mb-2">Website Resmi</label>
                                     <div class="relative">
@@ -95,7 +95,7 @@
                                     @error('website') <span class="text-red-500 text-xs mt-1 block">{{ $message }}</span> @enderror
                                 </div>
 
-                                {{-- Alamat --}}
+                                
                                 <div>
                                     <label class="block font-semibold text-sm text-slate-700 mb-2">Alamat Kantor</label>
                                     <div class="relative">
@@ -111,11 +111,11 @@
                                     </div>
                                 </div>
 
-                                {{-- Deskripsi --}}
+                                
                                 <div class="mb-6">
                                     <label class="block font-semibold text-sm text-slate-700 mb-2">Tentang Perusahaan</label>
 
-                                    {{-- Area Text Editor --}}
+                                   
                                     <div class="prose max-w-none">
                                         <textarea name="description" id="editor">{{ old('description', $employer->description) }}</textarea>
                                     </div>
@@ -128,7 +128,7 @@
                         </div>
                     </div>
 
-                    {{-- Footer Actions --}}
+                    
                     <div class="px-8 py-5 bg-slate-50 border-t border-slate-100 flex items-center justify-end gap-4">
                         <a href="{{ route('dashboard') }}" class="px-5 py-2.5 rounded-xl text-slate-600 font-semibold hover:bg-slate-200 hover:text-slate-800 transition text-sm">
                             Batal

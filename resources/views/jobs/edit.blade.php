@@ -16,7 +16,7 @@
         <div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
 
             <div class="bg-white overflow-hidden shadow-xl rounded-3xl border border-slate-100 relative">
-                {{-- Dekorasi Header Card --}}
+               
                 <div class="absolute top-0 left-0 w-full h-1 bg-indigo-500"></div>
 
                 <div class="p-8">
@@ -24,7 +24,7 @@
                         @csrf
                         @method('PUT')
 
-                        {{-- BAGIAN 1: INFORMASI UTAMA --}}
+                        
                         <div>
                             <h3 class="text-lg font-bold text-slate-800 border-b border-slate-100 pb-2 mb-6 flex items-center gap-2">
                                 <svg class="w-5 h-5 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -34,19 +34,19 @@
                             </h3>
 
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                {{-- Judul Pekerjaan --}}
+                               
                                 <div>
                                     <label class="block font-semibold text-sm text-slate-700 mb-2">Judul Pekerjaan</label>
                                     <input type="text" name="title" value="{{ old('title', $job->title) }}" class="w-full rounded-xl border-slate-200 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 py-3 px-4 text-slate-700" required>
                                 </div>
 
-                                {{-- Nama Perusahaan --}}
+                               
                                 <div>
                                     <label class="block font-semibold text-sm text-slate-700 mb-2">Nama Perusahaan</label>
                                     <input type="text" name="company_name" value="{{ $employer->name }}" class="w-full rounded-xl border-slate-200 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 py-3 px-4 text-slate-700 cursor-not-allowed" readonly>
                                 </div>
 
-                                {{-- Departemen --}}
+                               
                                 <div>
                                     <label class="block font-semibold text-sm text-slate-700 mb-2">Departemen</label>
                                     <div class="relative">
@@ -59,7 +59,7 @@
                                     </div>
                                 </div>
 
-                                {{-- Lokasi --}}
+                               
                                 <div>
                                     <label class="block font-semibold text-sm text-slate-700 mb-2">Lokasi Penempatan</label>
                                     <div class="relative">
@@ -75,7 +75,7 @@
                             </div>
                         </div>
 
-                        {{-- BAGIAN 2: DETAIL DESKRIPSI & GAJI --}}
+                       
                         <div>
                             <h3 class="text-lg font-bold text-slate-800 border-b border-slate-100 pb-2 mb-6 flex items-center gap-2">
                                 <svg class="w-5 h-5 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -85,11 +85,11 @@
                             </h3>
 
                             <div class="space-y-6">
-                                {{-- Deskripsi --}}
+                               
                                 <div class="mb-6">
                                     <label class="block font-semibold text-sm text-slate-700 mb-2">Deskripsi Pekerjaan</label>
 
-                                    {{-- Wrapper div untuk editor --}}
+                                   
                                     <div class="prose max-w-none">
                                         <textarea name="description" id="job_editor">{{ old('description', $job->description) }}</textarea>
                                     </div>
@@ -99,7 +99,7 @@
                                     @enderror
                                 </div>
 
-                                {{-- Gaji --}}
+                               
                                 <div>
                                     <label class="block font-semibold text-sm text-slate-700 mb-2">Gaji (Opsional)</label>
                                     <div class="relative max-w-md">
@@ -112,7 +112,7 @@
                             </div>
                         </div>
 
-                        {{-- BAGIAN 3: MEDIA & JADWAL --}}
+                       
                         <div>
                             <h3 class="text-lg font-bold text-slate-800 border-b border-slate-100 pb-2 mb-6 flex items-center gap-2">
                                 <svg class="w-5 h-5 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -122,7 +122,7 @@
                             </h3>
 
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
-                                {{-- Logo Upload --}}
+                               
                                 <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 border-dashed">
                                     <label class="block font-semibold text-sm text-slate-700 mb-3">Logo Perusahaan</label>
 
@@ -137,7 +137,7 @@
                                     @endif
                                 </div>
 
-                                {{-- Tanggal --}}
+                               
                                 <div class="space-y-4">
                                     <div>
                                         <label class="block font-semibold text-sm text-slate-700 mb-2">Tanggal Publikasi</label>
@@ -151,7 +151,7 @@
                             </div>
                         </div>
 
-                        {{-- Footer Buttons --}}
+                        
                         <div class="pt-6 border-t border-slate-100 flex items-center justify-end gap-3">
                             <a href="{{ route('jobs.list') }}" class="px-5 py-2.5 rounded-xl text-slate-600 font-semibold hover:bg-slate-100 hover:text-slate-800 transition">
                                 Batal

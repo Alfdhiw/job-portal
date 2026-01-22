@@ -18,14 +18,14 @@
 
     <div x-data="{ sidebarOpen: false }" class="flex h-screen overflow-hidden">
 
-        {{-- SIDEBAR: Background Utama menggunakan indigo-900 (#4c1d95) --}}
+       
         <aside class="absolute inset-y-0 left-0 z-50 w-64 bg-indigo-950 text-white transition-transform duration-300 ease-in-out transform md:static md:translate-x-0"
             :class="sidebarOpen ? 'translate-x-0' : '-translate-x-full'">
 
-            {{-- HEADER SIDEBAR: Sedikit lebih gelap untuk struktur --}}
+            
             <div class="flex items-center justify-center h-20 bg-indigo-900 border-b border-indigo-800">
                 <a href="{{ route('dashboard') }}" class="flex items-center gap-2">
-                    {{-- Logo Box --}}
+                    
                     <div class="bg-white p-1.5 rounded-lg shadow-lg shadow-indigo-900/50">
                         <svg class="w-6 h-6 text-indigo-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
@@ -35,16 +35,14 @@
                 </a>
             </div>
 
-            {{-- NAVIGASI --}}
+           
             <nav class="flex-1 px-4 py-6 space-y-2 overflow-y-auto">
 
                 <p class="px-4 text-xs font-bold text-indigo-400 uppercase tracking-wider mb-3">Menu Utama</p>
 
-                {{-- MENU KHUSUS SUPER ADMIN --}}
-                {{-- PERBAIKAN 1: Pastikan role sesuai database ('super_admin') --}}
                 @if(auth()->user()->role === 'superadmin')
 
-                {{-- 1. Dashboard Admin --}}
+                
                 <a href="{{ route('superadmin.dashboard') }}"
                     class="flex items-center px-4 py-3 text-sm font-medium rounded-xl transition-all duration-200 group {{ request()->routeIs('superadmin.dashboard') ? 'bg-indigo-600 text-white shadow-md shadow-indigo-900/30' : 'text-indigo-200 hover:bg-indigo-800 hover:text-white' }}">
                     <svg class="w-5 h-5 mr-3 {{ request()->routeIs('superadmin.dashboard') ? 'text-white' : 'text-indigo-400 group-hover:text-white' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -53,8 +51,6 @@
                     Dashboard Admin
                 </a>
 
-                {{-- 2. Kelola User --}}
-                {{-- PERBAIKAN 2: RouteIs diarahkan ke superadmin.users --}}
                 <a href="{{ route('superadmin.users') }}"
                     class="flex items-center px-4 py-3 text-sm font-medium rounded-xl transition-all duration-200 group {{ request()->routeIs('superadmin.users*') ? 'bg-indigo-600 text-white shadow-md shadow-indigo-900/30' : 'text-indigo-200 hover:bg-indigo-800 hover:text-white' }}">
                     <svg class="w-5 h-5 mr-3 {{ request()->routeIs('superadmin.users*') ? 'text-white' : 'text-indigo-400 group-hover:text-white' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -64,9 +60,9 @@
                 </a>
 
                 @else
-                {{-- MENU UNTUK USER BIASA (Employer) --}}
+                
 
-                {{-- 1. Dashboard Employer --}}
+                
                 <a href="{{ route('dashboard') }}"
                     class="flex items-center px-4 py-3 text-sm font-medium rounded-xl transition-all duration-200 group {{ request()->routeIs('dashboard') ? 'bg-indigo-600 text-white shadow-md shadow-indigo-900/30' : 'text-indigo-200 hover:bg-indigo-800 hover:text-white' }}">
                     <svg class="w-5 h-5 mr-3 {{ request()->routeIs('dashboard') ? 'text-white' : 'text-indigo-400 group-hover:text-white' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -75,7 +71,7 @@
                     Dashboard
                 </a>
 
-                {{-- 2. Lowongan --}}
+                
                 <a href="{{ route('jobs.list') }}"
                     class="flex items-center px-4 py-3 text-sm font-medium rounded-xl transition-all duration-200 group {{ request()->routeIs('jobs.*') ? 'bg-indigo-600 text-white shadow-md shadow-indigo-900/30' : 'text-indigo-200 hover:bg-indigo-800 hover:text-white' }}">
                     <svg class="w-5 h-5 mr-3 {{ request()->routeIs('jobs.*') ? 'text-white' : 'text-indigo-400 group-hover:text-white' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -84,8 +80,7 @@
                     Lowongan
                 </a>
 
-                {{-- 3. Kandidat --}}
-                {{-- PERBAIKAN 3: Menambahkan employer.show agar menu tetap menyala saat liat detail --}}
+                
                 <a href="{{ route('employer.candidates') }}"
                     class="flex items-center px-4 py-3 text-sm font-medium rounded-xl transition-all duration-200 group {{ request()->routeIs('employer.candidates', 'employer.show') ? 'bg-indigo-600 text-white shadow-md shadow-indigo-900/30' : 'text-indigo-200 hover:bg-indigo-800 hover:text-white' }}">
                     <svg class="w-5 h-5 mr-3 {{ request()->routeIs('employer.candidates', 'employer.show') ? 'text-white' : 'text-indigo-400 group-hover:text-white' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -93,7 +88,7 @@
                     </svg>
                     Kandidat
                 </a>
-                {{-- 4. Pengaturan Profile --}}
+                
                 <a href="{{ route('profile.edit') }}"
                     class="flex items-center px-4 py-3 text-sm font-medium rounded-xl transition-all duration-200 group {{ request()->routeIs('profile.edit') ? 'bg-indigo-600 text-white shadow-md shadow-indigo-900/30' : 'text-indigo-200 hover:bg-indigo-800 hover:text-white' }}">
                     <svg class="w-5 h-5 mr-3 {{ request()->routeIs('profile.edit') ? 'text-white' : 'text-indigo-400 group-hover:text-white' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -104,7 +99,7 @@
                 @endif
             </nav>
 
-            {{-- USER PROFILE FOOTER --}}
+            
             <div class="border-t border-indigo-800 p-4 bg-indigo-900">
                 <div class="flex items-center gap-3">
                     <div class="h-10 w-10 rounded-full bg-indigo-700 border border-indigo-600 flex items-center justify-center text-white font-bold shadow-sm">
@@ -131,7 +126,7 @@
             </div>
         </aside>
 
-        {{-- MAIN CONTENT (Tidak Berubah) --}}
+    
         <div class="flex-1 flex flex-col overflow-hidden relative">
 
             <div x-show="sidebarOpen" @click="sidebarOpen = false" x-transition.opacity
@@ -161,11 +156,7 @@
 
         </div>
     </div>
-    {{-- ========================================== --}}
-    {{-- THEMED TOAST NOTIFICATIONS (Purple & White)--}}
-    {{-- ========================================== --}}
-
-    {{-- 1. NOTIFIKASI SUKSES (TEMA UNGU/INDIGO) --}}
+    
     @if (session('success'))
     <div
         x-data="{ show: true }"
@@ -184,7 +175,7 @@
         class="fixed z-50 max-w-sm w-full top-5 right-5 bg-white border-l-4 border-indigo-600 rounded-r-xl shadow-lg shadow-indigo-500/20 overflow-hidden"
         role="alert">
         <div class="p-4 flex items-start gap-4">
-            {{-- Icon Ceklis (Lingkaran Ungu Pudar) --}}
+           
             <div class="flex-shrink-0">
                 <div class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-indigo-50 text-indigo-600">
                     <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -194,15 +185,15 @@
             </div>
 
             <div class="w-full pt-0.5">
-                {{-- Judul Kecil (Opsional, memberi konteks) --}}
+                
                 <h3 class="text-sm font-bold text-indigo-900">Berhasil!</h3>
-                {{-- Pesan Utama --}}
+                
                 <div class="mt-1 text-sm text-slate-600">
                     {{ session('success') }}
                 </div>
             </div>
 
-            {{-- Tombol Close (X) --}}
+           
             <button @click="show = false" type="button" class="ml-auto text-slate-400 hover:text-indigo-600 focus:outline-none transition-colors">
                 <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
@@ -210,14 +201,14 @@
             </button>
         </div>
 
-        {{-- Progress Bar effect (Garis jalan di bawah) --}}
+       
         <div class="h-1 bg-indigo-50 w-full absolute">
             <div class="h-full bg-indigo-600 animate-pulse w-full"></div>
         </div>
     </div>
     @endif
 
-    {{-- 2. NOTIFIKASI ERROR (TEMA MERAH ELEGAN) --}}
+    
     @if (session('error'))
     <div
         x-data="{ show: true }"
@@ -266,7 +257,7 @@
         document.addEventListener("DOMContentLoaded", function() {
             ClassicEditor
                 .create(document.querySelector('#editor'), {
-                    // Opsi Toolbar (Opsional: Bisa disesuaikan)
+                   
                     toolbar: ['heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote', 'undo', 'redo'],
                     heading: {
                         options: [{
@@ -296,7 +287,7 @@
                     console.error(error);
                 });
             ClassicEditor
-                .create(document.querySelector('#job_editor'), { // Pastikan ID ini sama dengan di textarea
+                .create(document.querySelector('#job_editor'), { 
                     toolbar: ['heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote', 'undo', 'redo'],
                     heading: {
                         options: [{
@@ -325,7 +316,6 @@
         });
     </script>
 
-    {{-- Style Tambahan untuk Menyesuaikan Tinggi --}}
     <style>
         .ck-editor__editable_inline {
             min-height: 200px;

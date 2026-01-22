@@ -43,17 +43,17 @@
                                 @foreach ($applications as $app)
                                 <tr class="hover:bg-slate-50 transition-colors">
 
-                                    {{-- 1. KOLOM KANDIDAT (Ambil langsung dari tabel applications) --}}
+                                    
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         <div class="flex items-center">
                                             <div class="flex-shrink-0 h-10 w-10">
-                                                {{-- Buat inisial dari nama pelamar --}}
+                                               
                                                 <div class="h-10 w-10 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600 font-bold">
                                                     {{ substr($app->full_name ?? 'Guest', 0, 1) }}
                                                 </div>
                                             </div>
                                             <div class="ml-4">
-                                                {{-- Sesuaikan 'name' dan 'email' dengan nama kolom database Anda --}}
+                                                
                                                 <div class="text-sm font-medium text-slate-900">{{ $app->name }}</div>
                                                 <div class="text-xs text-slate-500">{{ $app->email }}</div>
                                             </div>

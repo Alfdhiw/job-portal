@@ -59,16 +59,12 @@ class EmployerController extends Controller
 
     public function showCandidate($id)
     {
-        // 1. Cari aplikasi berdasarkan ID, eager load relasi 'job'
         $application = JobApplication::with('job')->findOrFail($id);
 
-        // 2. KEAMANAN: Cek apakah job tersebut benar milik employer yang sedang login
-        // Pastikan 'created_by_id' sesuai dengan ID user yang login
         if ($application->job->created_by_id !== Auth::id()) {
             abort(403, 'Akses Ditolak. Lowongan ini bukan milik Anda.');
         }
 
-        // 3. Tampilkan view
         return view('employer.show', compact('application'));
     }
 
@@ -83,7 +79,6 @@ class EmployerController extends Controller
         $application->status = 'interview';
         $application->save();
 
-        // Kirim Email
         Mail::to($application->email)->send(new InterviewInvitation($application, $request->interview_date, $request->message));
 
         return back()->with('success', 'Undangan interview berhasil dikirim ke kandidat!');

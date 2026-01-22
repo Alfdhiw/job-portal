@@ -38,14 +38,13 @@ class EmployerRegisterController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'role' => 'employer', // <--- KUNCI UTAMA: Otomatis set role jadi employer
+            'role' => 'employer',
         ]);
 
         event(new Registered($user));
 
         Auth::login($user);
 
-        // Redirect langsung ke dashboard employer
         return redirect()->route('dashboard');
     }
 }

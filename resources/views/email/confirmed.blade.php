@@ -10,7 +10,6 @@
     <style>
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
-            /* Pattern background halus */
             background-image: radial-gradient(#e0e7ff 1px, transparent 1px);
             background-size: 24px 24px;
         }
@@ -19,20 +18,20 @@
 
 <body class="bg-slate-50 min-h-screen flex items-center justify-center p-4">
 
-    {{-- Card Utama --}}
+   
     <div class="max-w-md w-full bg-white rounded-3xl shadow-2xl shadow-indigo-200/50 overflow-hidden relative transform transition-all">
 
-        {{-- Header Dekorasi dengan Efek Wave --}}
+       
         <div class="relative bg-gradient-to-br from-indigo-600 to-purple-700 pt-10 pb-20 px-6 text-center">
 
-            {{-- Partikel background (Opsional) --}}
+            
             <div class="absolute top-0 left-0 w-full h-full overflow-hidden opacity-20">
                 <div class="absolute top-0 right-0 w-32 h-32 bg-white rounded-full mix-blend-overlay filter blur-xl transform translate-x-10 -translate-y-10"></div>
                 <div class="absolute bottom-0 left-0 w-32 h-32 bg-white rounded-full mix-blend-overlay filter blur-xl transform -translate-x-10 translate-y-10"></div>
             </div>
         </div>
 
-        {{-- Ikon Centang (Floating di tengah) --}}
+       
         <div class="absolute top-28 left-1/2 transform -translate-x-1/2">
             <div class="w-20 h-20 bg-white rounded-full flex items-center justify-center shadow-xl ring-4 ring-white p-1">
                 <div class="w-full h-full bg-green-500 rounded-full flex items-center justify-center text-white animate-[bounce_2s_infinite]">
@@ -43,7 +42,7 @@
             </div>
         </div>
 
-        {{-- Konten Body --}}
+        
         <div class="px-8 pb-10 pt-16 text-center">
 
             <h1 class="text-2xl font-bold text-slate-800 mb-2">Konfirmasi Diterima!</h1>
@@ -51,7 +50,7 @@
                 Terima kasih <strong>{{ $application->name }}</strong>. Kehadiran Anda untuk sesi interview telah tercatat di sistem kami.
             </p>
 
-            {{-- Detail Box --}}
+           
             <div class="bg-indigo-50/60 border border-indigo-100 rounded-2xl p-4 mb-8 text-left transition hover:bg-indigo-50">
                 <div class="flex items-start gap-4">
                     <div class="bg-white p-2.5 rounded-xl shadow-sm border border-indigo-50 shrink-0">
@@ -67,7 +66,7 @@
                 </div>
             </div>
 
-            {{-- Action Button --}}
+            
             <a href="/" class="group flex items-center justify-center w-full py-3.5 bg-slate-900 hover:bg-indigo-600 text-white rounded-xl font-semibold transition-all duration-300 shadow-lg hover:shadow-indigo-500/30 transform hover:-translate-y-1">
                 <span>Kembali ke Beranda</span>
                 <svg class="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">

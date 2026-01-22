@@ -16,12 +16,12 @@
     <div class="py-12 bg-slate-50 min-h-screen">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-8">
 
-            {{-- Grid Container untuk Profile & Password --}}
+            
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
 
-                {{-- Card 1: Informasi Profil --}}
+                
                 <div class="p-8 bg-white shadow-xl rounded-3xl border border-slate-100 relative overflow-hidden">
-                    {{-- Dekorasi Header --}}
+                   
                     <div class="absolute top-0 left-0 w-full h-1 bg-primary-500"></div>
 
                     <div class="flex items-center gap-3 mb-6">
@@ -38,9 +38,9 @@
                     </div>
                 </div>
 
-                {{-- Card 2: Update Password --}}
+                
                 <div class="p-8 bg-white shadow-xl rounded-3xl border border-slate-100 relative overflow-hidden">
-                    {{-- Dekorasi Header --}}
+                   
                     <div class="absolute top-0 left-0 w-full h-1 bg-primary-500"></div>
 
                     <div class="flex items-center gap-3 mb-6">
@@ -58,9 +58,9 @@
                 </div>
             </div>
 
-            {{-- Card 3: Delete Account (Danger Zone) --}}
+            
             <div class="p-8 bg-white shadow-xl rounded-3xl border border-red-100 relative overflow-hidden group">
-                {{-- Pattern Background Halus --}}
+                
                 <div class="absolute top-0 right-0 -mr-16 -mt-16 w-32 h-32 rounded-full bg-red-50 opacity-50 group-hover:scale-150 transition duration-700"></div>
 
                 <div class="relative z-10">
@@ -86,7 +86,6 @@
     </div>
 </x-app-layout>
 
-{{-- Style Tambahan untuk Menyesuaikan Partials Bawaan Laravel --}}
 <style>
 
     input[type="text"],

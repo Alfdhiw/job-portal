@@ -8,7 +8,7 @@
     <div class="py-12 bg-slate-50/50">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
 
-            {{-- Header section --}}
+           
             <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
                 <div>
                     <h3 class="text-2xl font-bold text-slate-800">Daftar Pengguna</h3>
@@ -104,7 +104,7 @@
                     </table>
                 </div>
 
-                {{-- Pagination section --}}
+                
                 @if($users->hasPages())
                 <div class="px-6 py-5 bg-slate-50/50 border-t border-slate-100">
                     {{ $users->links() }}
@@ -114,7 +114,7 @@
         </div>
     </div>
 
-    {{-- Modal Tetap Sama (Di luar loop) --}}
+    
     <x-modal name="confirm-user-deletion" focusable>
         <div x-data="{ actionUrl: '' }" @set-delete-action.window="actionUrl = $event.detail">
             <form method="post" :action="actionUrl" class="p-0 overflow-hidden rounded-2xl bg-white text-left">

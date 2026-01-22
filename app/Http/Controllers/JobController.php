@@ -43,31 +43,25 @@ class JobController extends Controller
 
     public function store(Request $request)
     {
-        // 1. Otorisasi
         Gate::authorize('is-employer');
 
-        // 2. Ambil Data Employer
         $employer = Auth::user()->employer;
 
-        // Cek jika profil perusahaan belum ada
         if (!$employer) {
             return redirect()->route('employer.edit')
                 ->with('error', 'Harap lengkapi profil perusahaan terlebih dahulu!');
         }
 
-        // 3. Validasi Input
         $request->validate([
             'title'        => 'required|string|max:255',
             'department'   => 'required|string|max:255',
             'location'     => 'required|string|max:255',
-            'description'  => 'required', // Karena pakai WYSIWYG, stringnya bisa panjang
-            'salary'       => 'nullable|string', // Tambahkan ini agar input gaji tersimpan
+            'description'  => 'required',
+            'salary'       => 'nullable|string', 
             'published_at' => 'required|date',
             'expires_at'   => 'required|date|after:published_at',
         ]);
 
-        // 4. Simpan Data
-        // Gunakan $employer->jobs() agar 'employer_id' terisi otomatis
         $employer->jobs()->create([
             'title'        => $request->title,
             'department'   => $request->department,
@@ -110,7 +104,6 @@ class JobController extends Controller
             'salary'       => 'nullable|string',
         ]);
 
-        // Update data job yang sedang diedit
         $job->update($validatedData);
 
         return redirect()->route('jobs.list')->with('success', 'Lowongan berhasil diperbarui!');

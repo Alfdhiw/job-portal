@@ -7,10 +7,10 @@
 
     <div class="flex min-h-screen">
 
-        {{-- MAIN CONTENT --}}
+        
         <main class="flex-1 py-8 px-4 sm:px-6 lg:px-8">
 
-            {{-- Header Title & Breadcrumb --}}
+            
             <div class="mb-8">
                 <div class="flex items-center gap-2 text-sm text-slate-500 mb-1">
                     <span>Dashboard</span>
@@ -22,7 +22,7 @@
                 <h2 class="text-2xl font-bold text-slate-800">Selamat datang, {{ Auth::user()->name }}! 👋</h2>
             </div>
 
-            {{-- Warning Alert --}}
+            
             @if(Auth::user()->hasIncompleteProfile())
             <div class="mb-8 p-4 bg-orange-50 border border-orange-200 rounded-2xl flex items-start gap-4 shadow-sm">
                 <div class="p-2 bg-orange-100 rounded-full text-orange-600 shrink-0">
@@ -42,37 +42,33 @@
             </div>
             @endif
 
-            {{-- GRID LAYOUT UTAMA --}}
+            
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
 
-                {{-- LEFT COLUMN (Checklist & Jobs) --}}
+               
                 <div class="lg:col-span-8 space-y-8">
 
-                    {{-- Card: Checklist Setup (Mirip "Checklist setup domain") --}}
+                   
                     <div class="bg-white/80 backdrop-blur-xl border border-white/60 rounded-3xl shadow-sm p-6">
                         @php
-                        // --- LOGIKA MENGHITUNG PROGRESS ---
-
-                        // Mulai dari 1 (Karena Step 1: "Buat Akun" pasti sudah selesai jika user login)
+                    
                         $completedSteps = 1;
 
-                        // Cek Step 2 (Profil Perusahaan)
+                        
                         if (! Auth::user()->hasIncompleteProfile()) {
                         $completedSteps++;
                         }
 
-                        // Cek Step 3 (Posting Job Pertama)
-                        // Pastikan fungsi hasPostedJob() sudah ada di Model User (seperti di jawaban sebelumnya)
                         if (Auth::user()->hasPostedJob()) {
                         $completedSteps++;
                         }
 
-                        // Hitung persentase untuk lebar bar (33%, 66%, atau 100%)
+                        
                         $percentage = ($completedSteps / 3) * 100;
                         @endphp
 
                         <div class="mb-8">
-                            {{-- Bagian Header Teks & Angka --}}
+                            
                             <div class="flex justify-between items-end mb-3">
                                 <div>
                                     <h3 class="text-lg font-bold text-slate-800">Langkah Persiapan Rekrutmen</h3>
@@ -88,19 +84,19 @@
                                 </div>
                             </div>
 
-                            {{-- Progress Bar Visual --}}
+                            
                             <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden shadow-inner">
                                 <div class="bg-gradient-to-r from-primary-500 to-primary-600 h-full rounded-full transition-all duration-1000 ease-out relative"
                                     style="width: {{ $percentage }}%">
 
-                                    {{-- Efek Kilauan (Optional) --}}
+                                    
                                     <div class="absolute top-0 left-0 bottom-0 right-0 bg-white/20 w-full h-full animate-pulse"></div>
                                 </div>
                             </div>
                         </div>
 
                         <div class="space-y-4">
-                            {{-- Step 1: Done --}}
+                           
                             <div class="flex items-center justify-between p-4 bg-green-50/50 border border-green-100 rounded-xl">
                                 <div class="flex items-center gap-3">
                                     <div class="h-6 w-6 rounded-full bg-green-500 flex items-center justify-center text-white">
@@ -112,7 +108,7 @@
                                 </div>
                             </div>
 
-                            {{-- Step 2: Complete Profile --}}
+                            
                             @if( ! Auth::user()->hasIncompleteProfile() )
                             <div class="flex items-center justify-between p-4 bg-green-50/50 border border-green-100 rounded-xl transition-all">
                                 <div class="flex items-center gap-3">
@@ -153,7 +149,7 @@
 
                             @endif
 
-                            {{-- Logic Preparation --}}
+                            
                             @php
                             $isProfileComplete = !Auth::user()->hasIncompleteProfile(); // True jika Step 2 selesai
                             $hasPostedJob = Auth::user()->hasPostedJob(); // True jika Step 3 selesai
@@ -230,7 +226,7 @@
                     @endphp
 
                     <div>
-                        {{-- Header Section --}}
+                       
                         <div class="flex justify-between items-end mb-4">
                             <h3 class="text-xl font-bold text-slate-800">Lowongan Terbaru</h3>
                             {{-- Link ke halaman list semua job milik perusahaan --}}
@@ -239,7 +235,7 @@
                             </a>
                         </div>
 
-                        {{-- Table Section --}}
+                        
                         <div class="bg-white/80 backdrop-blur-xl border border-white/60 rounded-3xl shadow-sm overflow-hidden">
                             <table class="min-w-full divide-y divide-slate-100">
                                 <thead class="bg-slate-50">
@@ -250,7 +246,7 @@
                                     </tr>
                                 </thead>
                                 <tbody class="divide-y divide-slate-100">
-                                    {{-- Loop Data Milik User --}}
+                                    
                                     @forelse ($myJobs as $job)
                                     <tr class="hover:bg-primary-50/30 transition group">
                                         {{-- Kolom Posisi --}}
@@ -265,7 +261,7 @@
                                             </div>
                                         </td>
 
-                                        {{-- Kolom Status (Logika Sederhana) --}}
+                                       
                                         <td class="px-6 py-4">
                                             @if($job->expires_at < now())
                                                 <span class="px-2 py-1 rounded-full text-xs font-bold bg-red-100 text-red-700">
@@ -278,7 +274,7 @@
                                                 @endif
                                         </td>
 
-                                        {{-- Kolom Aksi --}}
+                                        
                                         <td class="px-6 py-4 text-right">
                                             <a href="{{ route('jobs.edit', $job) }}" class="text-primary-600 font-medium text-sm hover:underline flex items-center justify-end gap-1">
                                                 Kelola
@@ -289,7 +285,7 @@
                                         </td>
                                     </tr>
                                     @empty
-                                    {{-- Tampilan Jika Tidak Ada Data --}}
+                                    
                                     <tr>
                                         <td colspan="3" class="px-6 py-12 text-center">
                                             <div class="flex flex-col items-center justify-center text-slate-400">
@@ -482,15 +478,15 @@
                     @endphp
 
                     <div class="bg-white rounded-3xl shadow-md border border-slate-100 p-6">
-                        {{-- Header Kartu --}}
+                        
                         <div class="flex justify-between items-center mb-4">
                             <h4 class="font-bold text-slate-800">Statistik Cepat</h4>
-                            {{-- Link ini bisa diarahkan ke halaman analytics jika ada --}}
+                            
                             <a href="{{ route('jobs.statistik') }}" class="text-xs text-primary-600 font-bold hover:underline">Lihat Detail</a>
                         </div>
 
                         <div class="space-y-3">
-                            {{-- 1. Total Pelamar Minggu Ini --}}
+                            
                             <div>
                                 <p class="text-xs text-slate-400 font-bold uppercase tracking-wider">Pelamar Baru</p>
                                 <div class="flex items-baseline gap-2">
@@ -501,7 +497,7 @@
                                 </div>
                             </div>
 
-                            {{-- 2. Total Lowongan --}}
+                            
                             <div>
                                 <p class="text-xs text-slate-400 font-bold uppercase tracking-wider">Total Lowongan</p>
                                 <p class="text-sm font-medium text-slate-700">
@@ -511,10 +507,10 @@
                         </div>
                     </div>
 
-                    {{-- Card: Contact Info (Informasi Perusahaan) --}}
+                    
                     <div class="bg-white rounded-3xl shadow-md border border-slate-100 p-6">
 
-                        {{-- Header Card --}}
+                        
                         <div class="flex justify-between items-center mb-5">
                             <h4 class="font-bold text-slate-800 flex items-center gap-2">
                                 Profil Perusahaan
@@ -524,10 +520,10 @@
                             </a>
                         </div>
 
-                        {{-- KONTEN CARD --}}
+                        
                         @if(auth()->user()->hasIncompleteProfile())
 
-                        {{-- STATE 1: BELUM MENGISI PROFIL --}}
+                        
                         <div class="flex flex-col items-center justify-center text-center py-4 bg-amber-50 rounded-xl border border-amber-100 p-4">
                             <div class="bg-amber-100 p-3 rounded-full mb-3 text-amber-600">
                                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -544,13 +540,13 @@
 
                         @else
 
-                        {{-- STATE 2: SUDAH ADA DATA --}}
+                        
                         <div class="space-y-4">
 
-                            {{-- Nama Perusahaan --}}
+                            
                             <div class="flex items-start gap-3">
                                 <div class="mt-1 p-2 bg-indigo-50 text-indigo-600 rounded-lg shrink-0">
-                                    {{-- Icon Building --}}
+                                    
                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
                                     </svg>
@@ -563,10 +559,10 @@
                                 </div>
                             </div>
 
-                            {{-- Alamat --}}
+                            
                             <div class="flex items-start gap-3">
                                 <div class="mt-1 p-2 bg-emerald-50 text-emerald-600 rounded-lg shrink-0">
-                                    {{-- Icon Map Pin --}}
+                                    
                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
@@ -580,10 +576,10 @@
                                 </div>
                             </div>
 
-                            {{-- Website --}}
+                            
                             <div class="flex items-start gap-3">
                                 <div class="mt-1 p-2 bg-sky-50 text-sky-600 rounded-lg shrink-0">
-                                    {{-- Icon Globe --}}
+                                    
                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"></path>
                                     </svg>

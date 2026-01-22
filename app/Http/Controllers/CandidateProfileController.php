@@ -47,20 +47,20 @@ class CandidateProfileController extends Controller
         return back()->with('success', 'Profil berhasil diperbarui!');
     }
 
+    /**
+     * Proses update password user.
+     */
     public function updatePassword(Request $request)
     {
-        // 1. Cek Keamanan
         if (auth()->user()->role !== 'candidate') {
             abort(403);
         }
 
-        // 2. Validasi
         $validated = $request->validate([
-            'current_password' => ['required', 'current_password'], // Fitur bawaan Laravel utk cek password lama
-            'password' => ['required', 'confirmed', Password::defaults()], // Password baru + konfirmasi
+            'current_password' => ['required', 'current_password'], 
+            'password' => ['required', 'confirmed', Password::defaults()], 
         ]);
 
-        // 3. Update Password
         auth()->user()->update([
             'password' => Hash::make($validated['password']),
         ]);

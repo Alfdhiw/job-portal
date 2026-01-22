@@ -11,25 +11,20 @@ class PublicController extends Controller
 {
     public function index()
     {
-        // Tambahkan with('employer') di awal query
         $jobs = Job::with('employer')
             ->where('is_published', true)
             ->whereDate('published_at', '<=', now())
             ->whereDate('expires_at', '>=', now())
             ->latest()
-            ->get(); // Atau gunakan ->paginate(10) jika lowongan sudah banyak
+            ->get();
 
         return view('welcome', compact('jobs'));
     }
 
     public function show(Job $job)
     {
-        // 1. Optimasi Database (PENTING)
-        // Kita "load" relasi employer karena logo & nama perusahaan ada di sana.
         $job->load('employer');
 
-        // 2. Validasi Lowongan (Kode Asli Anda)
-        // Cek apakah published dan belum expired
         if (!$job->is_published || $job->expires_at < now()) {
             abort(404);
         }
@@ -72,30 +67,24 @@ class PublicController extends Controller
 
     public function search(Request $request)
     {
-        // 1. Mulai Query
+        
         $query = Job::query();
 
-        // 2. Filter Keyword (Judul / Posisi)
         if ($request->filled('search')) {
             $query->where('title', 'like', '%' . $request->search . '%')
                 ->orWhere('description', 'like', '%' . $request->search . '%');
         }
 
-        // 3. Filter Gaji Minimum
         if ($request->filled('min_salary')) {
             $query->where('salary', '>=', $request->min_salary);
         }
 
-        // 4. Filter Kategori (Opsional, jika ada dropdown kategori di welcome)
         if ($request->filled('category_id')) {
             $query->where('category_id', $request->category_id);
         }
 
-        // 5. Eksekusi: Ambil data terbaru & Pagination
-        $jobs = $query->latest()->paginate(10)->withQueryString(); // withQueryString agar filter tidak hilang saat pindah halaman
+        $jobs = $query->latest()->paginate(10)->withQueryString(); 
 
-        // 6. Return ke View Public
-        // Anda bisa menggunakan view 'jobs.index' yang sudah ada, atau buat view baru khusus public
         return view('welcome', compact('jobs'));
     }
 }

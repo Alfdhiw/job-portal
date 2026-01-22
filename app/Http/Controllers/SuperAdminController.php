@@ -33,7 +33,6 @@ class SuperAdminController extends Controller
         return view('superadmin.users', compact('users'));
     }
 
-    // --- FITUR TAMBAHAN: CREATE ---
     public function createUser()
     {
         return view('superadmin.create');
@@ -58,17 +57,13 @@ class SuperAdminController extends Controller
         return redirect()->route('superadmin.users')->with('success', 'User baru berhasil ditambahkan.');
     }
 
-    // --- FITUR TAMBAHAN: VIEW (SHOW) ---
     public function showUser(User $user)
     {
-        // Memuat relasi jika user adalah employer (punya profil perusahaan) 
-        // atau candidate (punya lamaran)
         $user->load(['employer', 'jobApplications']);
 
         return view('superadmin.users.show', compact('user'));
     }
 
-    // --- FITUR TAMBAHAN: EDIT ---
     public function editUser(User $user)
     {
         return view('superadmin.edit', compact('user'));
@@ -89,7 +84,6 @@ class SuperAdminController extends Controller
             'role' => $request->role,
         ];
 
-        // Hanya update password jika diisi
         if ($request->filled('password')) {
             $data['password'] = Hash::make($request->password);
         }

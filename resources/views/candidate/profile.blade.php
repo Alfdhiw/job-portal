@@ -33,7 +33,6 @@
                 <div class="flex items-center gap-4">
                     @if (Route::has('login'))
                     @auth
-                    {{-- LOGIKA 1: JIKA EMPLOYER (Tampilkan Tombol Dashboard) --}}
                     @if(Auth::user()->role === 'employer')
                     <a href="{{ route('dashboard') }}" class="px-5 py-2.5 text-sm font-semibold text-white bg-primary-900 rounded-full hover:bg-primary-600 transition shadow-md hover:shadow-lg transform hover:-translate-y-0.5">
                         Dashboard
@@ -44,7 +43,6 @@
                         Dashboard
                     </a>
 
-                    {{-- LOGIKA 2: JIKA CANDIDATE (Tampilkan Dropdown User) --}}
                     @else
                     <div x-data="{ open: false }" class="relative">
                         <button @click="open = !open" @click.outside="open = false" class="flex items-center gap-2 text-sm font-semibold text-gray-700 hover:text-primary-600 transition focus:outline-none">
@@ -74,7 +72,6 @@
                                 <p class="text-xs text-gray-500 truncate">{{ Auth::user()->email }}</p>
                             </div>
 
-                            {{-- Kamu bisa tambahkan menu edit profile disini jika mau --}}
                             <a href="{{ route('candidate.profile') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-600">Edit Profile</a>
 
                             <form method="POST" action="{{ route('logout') }}">
@@ -90,7 +87,6 @@
                     @endif
 
                     @else
-                    {{-- LOGIKA 3: JIKA TAMU (Login & Register) --}}
                     <a href="{{ route('login') }}" class="text-sm font-bold text-gray-600 hover:text-primary-600 transition">Log in</a>
 
                     @if (Route::has('register'))
@@ -108,7 +104,6 @@
 
         <div class="w-full max-w-4xl px-6 lg:px-8">
 
-            {{-- Header Title --}}
             <div class="text-center mb-10">
                 <h1 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
                     Halo, {{ $user->name }}! 👋
@@ -118,7 +113,6 @@
                 </p>
             </div>
 
-            {{-- Alert Sukses --}}
             @if (session('success'))
             <div class="mb-6 bg-emerald-50 border border-emerald-200 rounded-xl p-4 flex items-center gap-3 text-emerald-700 shadow-sm">
                 <svg class="w-6 h-6 shrink-0 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -128,10 +122,8 @@
             </div>
             @endif
 
-            {{-- Grid Layout: Kiri (Form), Kanan (Info/Hiasan) --}}
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
 
-                {{-- KOLOM KIRI: Form Edit (Lebar 2/3) --}}
                 <div class="md:col-span-2">
                     <div class="bg-white rounded-2xl shadow-xl border border-gray-100 p-6 sm:p-8">
                         <div class="mb-6 pb-6 border-b border-gray-100">
@@ -143,7 +135,7 @@
                             @csrf
                             @method('put')
 
-                            {{-- Nama --}}
+                           
                             <div>
                                 <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Nama Lengkap</label>
                                 <input type="text" name="name" id="name"
@@ -152,7 +144,7 @@
                                 @error('name') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
                             </div>
 
-                            {{-- Email --}}
+                            
                             <div>
                                 <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Alamat Email</label>
                                 <input type="email" name="email" id="email"
@@ -162,7 +154,7 @@
                                 @error('email') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
                             </div>
 
-                            {{-- Button --}}
+                            
                             <div class="pt-4">
                                 <button type="submit" class="w-full sm:w-auto px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-xl shadow-md transition-all transform hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
                                     Simpan Perubahan
@@ -170,7 +162,7 @@
                             </div>
                         </form>
                     </div>
-                    {{-- CARD BARU: UPDATE PASSWORD --}}
+                   
                     <div class="bg-white rounded-2xl shadow-xl border border-gray-100 p-6 sm:p-8 mt-8">
                         <div class="mb-6 pb-6 border-b border-gray-100">
                             <h2 class="text-xl font-bold text-gray-900">Ganti Password</h2>
@@ -181,7 +173,7 @@
                             @csrf
                             @method('put')
 
-                            {{-- Password Lama --}}
+                            
                             <div>
                                 <label for="current_password" class="block text-sm font-medium text-gray-700 mb-1">Password Saat Ini</label>
                                 <input type="password" name="current_password" id="current_password"
@@ -190,7 +182,7 @@
                                 @error('current_password') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
                             </div>
 
-                            {{-- Password Baru --}}
+                           
                             <div>
                                 <label for="password" class="block text-sm font-medium text-gray-700 mb-1">Password Baru</label>
                                 <input type="password" name="password" id="password"
@@ -199,7 +191,7 @@
                                 @error('password') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
                             </div>
 
-                            {{-- Konfirmasi Password Baru --}}
+                            
                             <div>
                                 <label for="password_confirmation" class="block text-sm font-medium text-gray-700 mb-1">Konfirmasi Password Baru</label>
                                 <input type="password" name="password_confirmation" id="password_confirmation"
@@ -208,7 +200,7 @@
                                 @error('password_confirmation') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
                             </div>
 
-                            {{-- Button --}}
+                            
                             <div class="pt-4">
                                 <button type="submit" class="w-full sm:w-auto px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-xl shadow-md transition-all transform hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-slate-500 focus:ring-offset-2">
                                     Update Password
@@ -218,10 +210,10 @@
                     </div>
                 </div>
 
-                {{-- KOLOM KANAN: Sidebar Info (Lebar 1/3) --}}
+               
                 <div class="md:col-span-1 space-y-6">
 
-                    {{-- Card Info --}}
+                  
                     <div class="bg-indigo-50 rounded-2xl p-6 border border-indigo-100">
                         <div class="w-10 h-10 bg-indigo-100 rounded-full flex items-center justify-center mb-4 text-indigo-600">
                             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -234,7 +226,7 @@
                         </p>
                     </div>
 
-                    {{-- Card Status --}}
+                    
                     <div class="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm">
                         <h3 class="font-bold text-gray-800 mb-3">Status Akun</h3>
                         <div class="flex items-center gap-2">
@@ -252,7 +244,6 @@
 
         </div>
 
-        {{-- Footer Simple --}}
         <div class="mt-20 py-6 text-center text-sm text-gray-400">
             &copy; {{ date('Y') }} {{ config('app.name') }}. All rights reserved.
         </div>

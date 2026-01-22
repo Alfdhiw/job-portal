@@ -1,17 +1,17 @@
 <section class="space-y-6">
     <header>
-        {{-- Judul Section --}}
+        
         <h2 class="text-lg font-bold text-slate-800">
             {{ __('Hapus Akun Permanen') }}
         </h2>
 
-        {{-- Deskripsi --}}
+       
         <p class="mt-1 text-sm text-slate-500 leading-relaxed">
             {{ __('Setelah akun Anda dihapus, semua sumber daya dan data yang terkait akan dihapus secara permanen. Sebelum menghapus akun, harap unduh data atau informasi apa pun yang ingin Anda simpan sebagai cadangan.') }}
         </p>
     </header>
 
-    {{-- Tombol Trigger Merah --}}
+    
     <button
         x-data=""
         x-on:click.prevent="$dispatch('open-modal', 'confirm-user-deletion')"
@@ -19,18 +19,18 @@
         {{ __('Hapus Akun Saya') }}
     </button>
 
-    {{-- MODAL KONFIRMASI --}}
+    
     <x-modal name="confirm-user-deletion" :show="$errors->userDeletion->isNotEmpty()" focusable>
         <form method="post" action="{{ route('profile.destroy') }}" class="p-0 overflow-hidden rounded-2xl bg-white">
             @csrf
             @method('delete')
 
             <div class="p-6">
-                {{-- Header Modal dengan Icon Bernuansa Ungu --}}
+               
                 <div class="flex items-start gap-4 mb-5">
-                    {{-- Ubah bg-red-100 menjadi bg-primary-50 --}}
+                   
                     <div class="flex-shrink-0 h-12 w-12 rounded-full bg-primary-50 flex items-center justify-center sm:h-10 sm:w-10">
-                        {{-- Ubah text-red-600 menjadi text-primary-600 --}}
+                       
                         <svg class="h-6 w-6 text-primary-600" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
                         </svg>
@@ -45,12 +45,12 @@
                     </div>
                 </div>
 
-                {{-- Input Password --}}
+               
                 <div class="mt-6 ml-0 sm:ml-14">
                     <x-input-label for="password" value="{{ __('Password') }}" class="sr-only" />
 
                     <div class="relative">
-                        {{-- Ubah focus border dan ring menjadi primary --}}
+                       
                         <input
                             id="password"
                             name="password"
@@ -63,15 +63,15 @@
                 </div>
             </div>
 
-            {{-- Footer / Action Buttons --}}
-            {{-- Menggunakan bg-white agar lebih bersih atau bg-slate-50 yang sangat tipis --}}
+            
+           
             <div class="bg-gray-50/50 px-6 py-4 flex flex-row-reverse gap-3 border-t border-gray-100">
-                {{-- Tombol Hapus: Ubah bg-red menjadi bg-primary --}}
+               
                 <button type="submit" class="inline-flex justify-center rounded-xl border border-transparent bg-primary-600 px-4 py-2 text-base font-bold text-white shadow-sm hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 sm:text-sm sm:w-auto">
                     {{ __('Ya, Hapus Akun') }}
                 </button>
 
-                {{-- Tombol Batal --}}
+              
                 <button type="button" x-on:click="$dispatch('close')" class="inline-flex justify-center rounded-xl border border-slate-200 bg-white px-4 py-2 text-base font-semibold text-slate-700 shadow-sm hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 sm:mt-0 sm:w-auto sm:text-sm">
                     {{ __('Batal') }}
                 </button>

@@ -15,7 +15,7 @@
     <div class="py-12 bg-slate-50 min-h-screen">
         <div class="max-w-5xl mx-auto sm:px-6 lg:px-8">
 
-            {{-- Error Message Modern --}}
+            
             @if ($errors->any())
             <div class="mb-6 bg-red-50 border-l-4 border-red-500 p-4 rounded-r-xl shadow-sm animate-fade-in-down">
                 <div class="flex">
@@ -41,18 +41,18 @@
 
                 <div class="bg-white overflow-hidden shadow-xl rounded-3xl border border-slate-100">
 
-                    {{-- Section 1: Informasi Dasar --}}
+                    
                     <div class="p-8 border-b border-slate-100">
                         <h3 class="text-lg font-bold text-indigo-900 mb-6 flex items-center gap-2">
                             <span class="w-8 h-8 rounded-full bg-indigo-100 text-indigo-600 flex items-center justify-center text-sm">1</span>
                             Informasi Dasar
                         </h3>
 
-                        {{-- [BARU] Visual Feedback: Menampilkan Logo Otomatis --}}
-                        {{-- Pastikan controller mengirim variabel $employer ke view ini --}}
+                       
+                        
                         <div class="mb-8 bg-slate-50 p-4 rounded-xl border border-slate-200 flex items-center gap-4">
                             <div class="w-16 h-16 rounded-full overflow-hidden bg-white border border-slate-200 flex-shrink-0">
-                                {{-- Menampilkan logo dari profil employer --}}
+                                
                                 <img src="{{ asset('storage/' . $employer->logo) }}" alt="Logo Perusahaan" class="w-full h-full object-cover">
                             </div>
                             <div>
@@ -66,10 +66,10 @@
                                 </p>
                             </div>
                         </div>
-                        {{-- [END BARU] --}}
+                       
 
                         <div class="space-y-6">
-                            {{-- Judul Pekerjaan (Full Width) --}}
+                           
                             <div>
                                 <label class="block font-semibold text-sm text-slate-700 mb-2">Judul Pekerjaan <span class="text-red-500">*</span></label>
                                 <input type="text" name="title" placeholder="Contoh: Senior UI/UX Designer"
@@ -77,13 +77,13 @@
                             </div>
 
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                {{-- Departemen --}}
+                               
                                 <div>
                                     <label class="block font-semibold text-sm text-slate-700 mb-2">Departemen <span class="text-red-500">*</span></label>
                                     <input type="text" name="department" placeholder="Contoh: Marketing, IT, HR"
                                         class="w-full rounded-xl border-slate-200 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 py-3 px-4 text-slate-700 placeholder-slate-400 transition" required>
                                 </div>
-                                {{-- Lokasi --}}
+                               
                                 <div>
                                     <label class="block font-semibold text-sm text-slate-700 mb-2">Lokasi <span class="text-red-500">*</span></label>
                                     <div class="relative">
@@ -99,7 +99,7 @@
                                 </div>
                             </div>
 
-                            {{-- Gaji --}}
+                            
                             <div>
                                 <label class="block font-semibold text-sm text-slate-700 mb-2">Estimasi Gaji (Opsional)</label>
                                 <div class="relative">
@@ -113,7 +113,7 @@
                         </div>
                     </div>
 
-                    {{-- Section 2: Detail Deskripsi --}}
+                    
                     <div class="p-8 border-b border-slate-100 bg-slate-50/50">
                         <h3 class="text-lg font-bold text-indigo-900 mb-6 flex items-center gap-2">
                             <span class="w-8 h-8 rounded-full bg-indigo-100 text-indigo-600 flex items-center justify-center text-sm">2</span>
@@ -129,7 +129,7 @@
                         </div>
                     </div>
 
-                    {{-- Section 3: Jadwal --}}
+                    
                     <div class="p-8">
                         <h3 class="text-lg font-bold text-indigo-900 mb-6 flex items-center gap-2">
                             <span class="w-8 h-8 rounded-full bg-indigo-100 text-indigo-600 flex items-center justify-center text-sm">3</span>
@@ -149,7 +149,7 @@
                         </div>
                     </div>
 
-                    {{-- Footer Button --}}
+                    
                     <div class="px-8 py-6 bg-slate-50 border-t border-slate-100 flex items-center justify-between">
                         <a href="{{ route('dashboard') }}" class="text-slate-500 hover:text-slate-800 font-medium text-sm">
                             &larr; Kembali ke Dashboard
@@ -164,21 +164,20 @@
     </div>
 </x-app-layout>
 
-{{-- Script CKEditor --}}
+
 <script src="https://cdn.ckeditor.com/ckeditor5/40.0.0/classic/ckeditor.js"></script>
 
 <style>
-    /* Styling khusus untuk konten di dalam CKEditor agar list-nya muncul rapi */
+    
     .ck-editor__editable {
         min-height: 200px;
         padding: 1rem !important;
         border-radius: 0 0 0.75rem 0.75rem !important;
-        /* Rounded bawah mengikuti container */
+       
     }
 
     .ck-toolbar {
         border-radius: 0.75rem 0.75rem 0 0 !important;
-        /* Rounded atas */
         border-color: #e2e8f0 !important;
         background-color: #f8fafc !important;
     }
@@ -189,11 +188,9 @@
 
     .ck.ck-editor__main>.ck-editor__editable.ck-focused {
         border-color: #6366f1 !important;
-        /* Warna Indigo saat fokus */
         box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2) !important;
     }
 
-    /* Memastikan bullet points muncul */
     .ck-content ul {
         list-style-type: disc;
         margin-left: 1.5rem;
@@ -211,7 +208,6 @@
     .ck-content h4 {
         font-weight: bold;
         color: #1e1b4b;
-        /* Indigo gelap */
         margin-top: 1rem;
         margin-bottom: 0.5rem;
     }
