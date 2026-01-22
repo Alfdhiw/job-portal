@@ -1,7 +1,6 @@
 # 🚀 KarirKu - Modern Job Portal Application
 
-![KarirKu Banner](https://via.placeholder.com/1200x400.png?text=KarirKu+Job+Portal)
-_(Opsional: Ganti link di atas dengan screenshot halaman depan aplikasi Anda)_
+<img width="1352" height="534" alt="Image" src="https://github.com/user-attachments/assets/efe04c02-6ade-4418-a224-0342ca2acef9" />
 
 ## 📖 Tentang Aplikasi
 
@@ -170,6 +169,8 @@ Authorization: Bearer <your_access_token>
 ## 📝 Lisensi
 
 Proyek ini bersifat open-source di bawah lisensi MIT
+
+---
 
 <p align="center"> Dibuat dengan ❤️ oleh Alfdhiw </p>
 
