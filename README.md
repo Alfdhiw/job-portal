@@ -1,59 +1,183 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 🚀 KarirKu - Modern Job Portal Application
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+![KarirKu Banner](https://via.placeholder.com/1200x400.png?text=KarirKu+Job+Portal)
+_(Opsional: Ganti link di atas dengan screenshot halaman depan aplikasi Anda)_
 
-## About Laravel
+## 📖 Tentang Aplikasi
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+**KarirKu** adalah sebuah platform portal lowongan kerja berbasis web yang menghubungkan talenta terbaik dengan perusahaan impian mereka. Aplikasi ini dirancang untuk memfasilitasi tiga peran utama: Pelamar Kerja (Candidate), Perusahaan (Employer), dan Administrator.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Dibangun dengan arsitektur MVC yang kokoh menggunakan **Laravel** dan didukung oleh antarmuka modern **Tailwind CSS**, KarirKu menawarkan pengalaman pengguna yang responsif, cepat, dan intuitif.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Salah satu fitur unik di panel Admin adalah sistem _Teaser Statistik_ (Paywall UI) yang mensimulasikan fitur premium terkunci dengan pendekatan yang kreatif dan interaktif.
 
-## Learning Laravel
+## 🛠️ Tech Stack (Teknologi yang Digunakan)
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+Aplikasi ini dikembangkan menggunakan teknologi industri terkini:
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+- **Backend Framework:** [Laravel 10.x](https://laravel.com) (PHP)
+- **Frontend Templating:** Laravel Blade
+- **Styling & UI:** [Tailwind CSS](https://tailwindcss.com)
+- **Database:** MySQL
+- **JavaScript:** Alpine.js (untuk interaksi ringan)
+- **Icon Set:** Heroicons & SVG
+- **Version Control:** Git
 
-## Laravel Sponsors
+## ✨ Fitur Utama
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### 👨‍💼 Super Admin
 
-### Premium Partners
+- **Manajemen User:** Melihat, mengedit, dan membuat user baru (Employer/Candidate).
+- **Dashboard Statistik:** Tampilan analitik dengan UI _Glassmorphism_ dan fitur _Locked Content_ (Teaser).
+- **Kontrol Akses:** Mengelola hak akses pengguna.
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+### 🏢 Employer (Perusahaan)
 
-## Contributing
+- **Posting Lowongan:** Membuat dan mempublikasikan lowongan pekerjaan.
+- **Manajemen Profil:** Mengatur logo, deskripsi, dan alamat perusahaan.
+- **Kelola Pelamar:** Melihat daftar pelamar yang masuk untuk setiap lowongan.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### 👨‍💻 Candidate (Pelamar)
 
-## Code of Conduct
+- **Pencarian Kerja:** Mencari lowongan berdasarkan kategori atau lokasi.
+- **Apply Job:** Melamar pekerjaan dengan mengunggah CV.
+- **Riwayat Lamaran:** Memantau status lamaran yang telah dikirim.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+---
 
-## Security Vulnerabilities
+## 💻 Panduan Instalasi (Local Development)
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Ikuti langkah-langkah berikut untuk menjalankan proyek ini di komputer lokal Anda.
 
-## License
+### Prasyarat
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Pastikan Anda telah menginstal:
+
+- PHP >= 8.1
+- Composer
+- Node.js & NPM
+- MySQL Database
+
+### Langkah 1: Clone Repository
+
+```bash
+git clone [https://github.com/username-anda/karirku.git](https://github.com/username-anda/karirku.git)
+cd karirku
+```
+
+### Langkah 2: Clone Repository
+
+Install paket PHP (Laravel) dan JavaScript (Tailwind):
+
+```bash
+composer install
+npm install
+```
+
+### Langkah 3: Konfigurasi Environment
+
+```bash
+cp .env.example .env
+```
+
+Buka file .env dan sesuaikan konfigurasi database Anda : 
+
+```bash
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=job_portal
+DB_USERNAME=root
+DB_PASSWORD=
+```
+
+### Langkah 4: Generate Application Key
+
+```bash
+php artisan key:generate
+```
+
+### Langkah 5: Setup Database
+
+```bash
+php artisan migrate --seed
+```
+
+### Langkah 6: Jalankan Aplikasi
+
+Terminal 1
+
+```bash
+npm run dev
+```
+
+Terminal 2
+
+```bash
+php artisan serve
+```
+
+Akses aplikasi melalui browser di: http://localhost:8000
+
+---
+
+## 🔐 Akun Demo (Seeder)
+
+Jika menjalankan seeder, dapat menggunakan akun berikut untuk login:
+
+<img width="390" height="141" alt="Image" src="https://github.com/user-attachments/assets/a274d041-e229-41a8-a999-7a73dedc2a59" />
+
+---
+
+## 📊 Flowchart Sistem 
+
+<img width="2092" height="2420" alt="Image" src="https://github.com/user-attachments/assets/e8e941b4-bc74-4044-873b-192b836960cc" />
+
+---
+
+## 🗂️ Struktur Database (ERD)
+
+<img width="2092" height="3788" alt="Image" src="https://github.com/user-attachments/assets/13e25203-5e39-48a8-9a6f-ebf881d86b56" />
+
+---
+
+## 🔌 API Documentation
+
+Aplikasi KarirKu menyediakan **RESTful API** yang dapat digunakan untuk integrasi dengan aplikasi mobile (Android/iOS) atau layanan pihak ketiga. Sistem autentikasi menggunakan **Laravel Sanctum** (Bearer Token).
+
+### Header Request
+Setiap request ke endpoint yang diproteksi harus menyertakan header berikut:
+
+```http
+Accept: application/json
+Authorization: Bearer <your_access_token>
+```
+
+### Daftar Endpoint Utama
+
+<img width="527" height="311" alt="Image" src="https://github.com/user-attachments/assets/6ddb85c2-8ca4-44b4-91aa-3b4e6588dce4" />
+
+### Cara Testing API (Postman/Insomnia)
+
+- Lakukan request POST ke /api/login dengan body email & password.
+
+- Salin token yang dikembalikan oleh response JSON.
+
+- Gunakan token tersebut di tab Authorization > pilih tipe Bearer Token pada request selanjutnya.
+
+---
+
+## 📝 Lisensi
+
+Proyek ini bersifat open-source di bawah lisensi MIT
+
+<p align="center"> Dibuat dengan ❤️ oleh Alfdhiw </p>
+
+
+
+
+
+
+
+
+
