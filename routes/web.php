@@ -9,7 +9,7 @@ use App\Http\Controllers\Auth\EmployerRegisterController;
 use App\Http\Controllers\CandidateProfileController;
 use Illuminate\Support\Facades\Route;
 
-// Public Routes
+// PUBLIC ROUTES
 Route::get('/', [PublicController::class, 'index'])->name('home');
 Route::get('/job/{job}', [PublicController::class, 'show'])->name('job.show');
 Route::get('/lowongan', [PublicController::class, 'search'])->name('public.jobs');
@@ -18,14 +18,13 @@ Route::get('/lamaran/{id}/konfirmasi', [PublicController::class, 'confirmIntervi
 Route::get('register/employer', [EmployerRegisterController::class, 'create'])->name('register.employer');
 Route::post('register/employer', [EmployerRegisterController::class, 'store']);
 
-// Protected Routes
+// PROTECTED ROUTES
 Route::middleware(['auth', 'verified'])->group(function () {
-
-    Route::get('/dashboard', [JobController::class, 'index'])->name('dashboard');
 
     // ROUTE KHUSUS EMPLOYER
     Route::middleware('admin')->group(function () {
         Route::resource('jobs', JobController::class);
+        Route::get('/dashboard', [JobController::class, 'dashboard'])->name('dashboard');
         Route::get('/list', [JobController::class, 'list'])->name('jobs.list');
         Route::get('/company-profile', [EmployerController::class, 'edit'])->name('employer.edit');
         Route::post('/company-profile', [EmployerController::class, 'update'])->name('employer.update');
@@ -33,7 +32,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/candidat/{id}', [EmployerController::class, 'showCandidate'])->name('employer.show');
         Route::post('/candidat/{id}/interview', [EmployerController::class, 'storeInterview'])->name('employer.store');
         Route::get('/statistik', [JobController::class, 'statistik'])->name('jobs.statistik');
-        
     });
 
     // ROUTE KHUSUS SUPER ADMIN

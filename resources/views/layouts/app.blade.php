@@ -18,14 +18,14 @@
 
     <div x-data="{ sidebarOpen: false }" class="flex h-screen overflow-hidden">
 
-       
+
         <aside class="absolute inset-y-0 left-0 z-50 w-64 bg-indigo-950 text-white transition-transform duration-300 ease-in-out transform md:static md:translate-x-0"
             :class="sidebarOpen ? 'translate-x-0' : '-translate-x-full'">
 
-            
+
             <div class="flex items-center justify-center h-20 bg-indigo-900 border-b border-indigo-800">
                 <a href="{{ route('dashboard') }}" class="flex items-center gap-2">
-                    
+
                     <div class="bg-white p-1.5 rounded-lg shadow-lg shadow-indigo-900/50">
                         <svg class="w-6 h-6 text-indigo-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
@@ -35,14 +35,14 @@
                 </a>
             </div>
 
-           
+
             <nav class="flex-1 px-4 py-6 space-y-2 overflow-y-auto">
 
                 <p class="px-4 text-xs font-bold text-indigo-400 uppercase tracking-wider mb-3">Menu Utama</p>
 
                 @if(auth()->user()->role === 'superadmin')
 
-                
+
                 <a href="{{ route('superadmin.dashboard') }}"
                     class="flex items-center px-4 py-3 text-sm font-medium rounded-xl transition-all duration-200 group {{ request()->routeIs('superadmin.dashboard') ? 'bg-indigo-600 text-white shadow-md shadow-indigo-900/30' : 'text-indigo-200 hover:bg-indigo-800 hover:text-white' }}">
                     <svg class="w-5 h-5 mr-3 {{ request()->routeIs('superadmin.dashboard') ? 'text-white' : 'text-indigo-400 group-hover:text-white' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -60,9 +60,9 @@
                 </a>
 
                 @else
-                
 
-                
+
+
                 <a href="{{ route('dashboard') }}"
                     class="flex items-center px-4 py-3 text-sm font-medium rounded-xl transition-all duration-200 group {{ request()->routeIs('dashboard') ? 'bg-indigo-600 text-white shadow-md shadow-indigo-900/30' : 'text-indigo-200 hover:bg-indigo-800 hover:text-white' }}">
                     <svg class="w-5 h-5 mr-3 {{ request()->routeIs('dashboard') ? 'text-white' : 'text-indigo-400 group-hover:text-white' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -71,7 +71,7 @@
                     Dashboard
                 </a>
 
-                
+
                 <a href="{{ route('jobs.list') }}"
                     class="flex items-center px-4 py-3 text-sm font-medium rounded-xl transition-all duration-200 group {{ request()->routeIs('jobs.*') ? 'bg-indigo-600 text-white shadow-md shadow-indigo-900/30' : 'text-indigo-200 hover:bg-indigo-800 hover:text-white' }}">
                     <svg class="w-5 h-5 mr-3 {{ request()->routeIs('jobs.*') ? 'text-white' : 'text-indigo-400 group-hover:text-white' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -80,7 +80,7 @@
                     Lowongan
                 </a>
 
-                
+
                 <a href="{{ route('employer.candidates') }}"
                     class="flex items-center px-4 py-3 text-sm font-medium rounded-xl transition-all duration-200 group {{ request()->routeIs('employer.candidates', 'employer.show') ? 'bg-indigo-600 text-white shadow-md shadow-indigo-900/30' : 'text-indigo-200 hover:bg-indigo-800 hover:text-white' }}">
                     <svg class="w-5 h-5 mr-3 {{ request()->routeIs('employer.candidates', 'employer.show') ? 'text-white' : 'text-indigo-400 group-hover:text-white' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -88,7 +88,7 @@
                     </svg>
                     Kandidat
                 </a>
-                
+
                 <a href="{{ route('profile.edit') }}"
                     class="flex items-center px-4 py-3 text-sm font-medium rounded-xl transition-all duration-200 group {{ request()->routeIs('profile.edit') ? 'bg-indigo-600 text-white shadow-md shadow-indigo-900/30' : 'text-indigo-200 hover:bg-indigo-800 hover:text-white' }}">
                     <svg class="w-5 h-5 mr-3 {{ request()->routeIs('profile.edit') ? 'text-white' : 'text-indigo-400 group-hover:text-white' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -99,7 +99,7 @@
                 @endif
             </nav>
 
-            
+
             <div class="border-t border-indigo-800 p-4 bg-indigo-900">
                 <div class="flex items-center gap-3">
                     <div class="h-10 w-10 rounded-full bg-indigo-700 border border-indigo-600 flex items-center justify-center text-white font-bold shadow-sm">
@@ -126,7 +126,7 @@
             </div>
         </aside>
 
-    
+
         <div class="flex-1 flex flex-col overflow-hidden relative">
 
             <div x-show="sidebarOpen" @click="sidebarOpen = false" x-transition.opacity
@@ -156,7 +156,7 @@
 
         </div>
     </div>
-    
+
     @if (session('success'))
     <div
         x-data="{ show: true }"
@@ -175,7 +175,7 @@
         class="fixed z-50 max-w-sm w-full top-5 right-5 bg-white border-l-4 border-indigo-600 rounded-r-xl shadow-lg shadow-indigo-500/20 overflow-hidden"
         role="alert">
         <div class="p-4 flex items-start gap-4">
-           
+
             <div class="flex-shrink-0">
                 <div class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-indigo-50 text-indigo-600">
                     <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -185,15 +185,15 @@
             </div>
 
             <div class="w-full pt-0.5">
-                
+
                 <h3 class="text-sm font-bold text-indigo-900">Berhasil!</h3>
-                
+
                 <div class="mt-1 text-sm text-slate-600">
                     {{ session('success') }}
                 </div>
             </div>
 
-           
+
             <button @click="show = false" type="button" class="ml-auto text-slate-400 hover:text-indigo-600 focus:outline-none transition-colors">
                 <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
@@ -201,14 +201,14 @@
             </button>
         </div>
 
-       
+
         <div class="h-1 bg-indigo-50 w-full absolute">
             <div class="h-full bg-indigo-600 animate-pulse w-full"></div>
         </div>
     </div>
     @endif
 
-    
+
     @if (session('error'))
     <div
         x-data="{ show: true }"
@@ -255,64 +255,40 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            ClassicEditor
-                .create(document.querySelector('#editor'), {
-                   
-                    toolbar: ['heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote', 'undo', 'redo'],
-                    heading: {
-                        options: [{
-                                model: 'paragraph',
-                                title: 'Paragraph',
-                                class: 'ck-heading_paragraph'
-                            },
-                            {
-                                model: 'heading1',
-                                view: 'h1',
-                                title: 'Heading 1',
-                                class: 'ck-heading_heading1'
-                            },
-                            {
-                                model: 'heading2',
-                                view: 'h2',
-                                title: 'Heading 2',
-                                class: 'ck-heading_heading2'
+            const editorSelectors = ['#editor', '#job_editor', '#description'];
+
+            editorSelectors.forEach(selector => {
+                const element = document.querySelector(selector);
+                if (element) {
+                    ClassicEditor
+                        .create(element, {
+                            toolbar: ['heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote'],
+                            heading: {
+                                options: [{
+                                        model: 'paragraph',
+                                        title: 'Paragraph',
+                                        class: 'ck-heading_paragraph'
+                                    },
+                                    {
+                                        model: 'heading1',
+                                        view: 'h1',
+                                        title: 'Heading 1',
+                                        class: 'ck-heading_heading1'
+                                    },
+                                    {
+                                        model: 'heading2',
+                                        view: 'h2',
+                                        title: 'Heading 2',
+                                        class: 'ck-heading_heading2'
+                                    }
+                                ]
                             }
-                        ]
-                    }
-                })
-                .then(editor => {
-                    console.log('Editor berhasil dimuat', editor);
-                })
-                .catch(error => {
-                    console.error(error);
-                });
-            ClassicEditor
-                .create(document.querySelector('#job_editor'), { 
-                    toolbar: ['heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote', 'undo', 'redo'],
-                    heading: {
-                        options: [{
-                                model: 'paragraph',
-                                title: 'Paragraph',
-                                class: 'ck-heading_paragraph'
-                            },
-                            {
-                                model: 'heading1',
-                                view: 'h1',
-                                title: 'Heading 1',
-                                class: 'ck-heading_heading1'
-                            },
-                            {
-                                model: 'heading2',
-                                view: 'h2',
-                                title: 'Heading 2',
-                                class: 'ck-heading_heading2'
-                            }
-                        ]
-                    }
-                })
-                .catch(error => {
-                    console.error(error);
-                });
+                        })
+                        .catch(error => {
+                            console.error('CKEditor error:', error);
+                        });
+                }
+            });
         });
     </script>
 

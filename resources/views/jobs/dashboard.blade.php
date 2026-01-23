@@ -247,7 +247,7 @@
                                 </thead>
                                 <tbody class="divide-y divide-slate-100">
                                     
-                                    @forelse ($myJobs as $job)
+                                    @forelse ($jobs as $job)
                                     <tr class="hover:bg-primary-50/30 transition group">
                                         {{-- Kolom Posisi --}}
                                         <td class="px-6 py-4">
@@ -449,7 +449,7 @@
                                 </p>
                                 <p class="text-lg font-bold {{ $urgentJob ? 'text-red-600' : 'text-slate-800' }}">
                                     @if($urgentJob)
-                                    {{ \Carbon\Carbon::parse($urgentJob->closing_date)->translatedFormat('d M Y') }}
+                                    {{ \Carbon\Carbon::parse($urgentJob->expires_at)->translatedFormat('d M Y') }}
                                     @else
                                     Semua Aman
                                     @endif
@@ -501,7 +501,7 @@
                             <div>
                                 <p class="text-xs text-slate-400 font-bold uppercase tracking-wider">Total Lowongan</p>
                                 <p class="text-sm font-medium text-slate-700">
-                                    {{ $stats->jobs }} Loker Aktif
+                                    {{ $stats->jobs }} Loker
                                 </p>
                             </div>
                         </div>

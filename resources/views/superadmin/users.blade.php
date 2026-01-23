@@ -61,7 +61,7 @@
                                         <span class="w-1.5 h-1.5 rounded-full bg-indigo-500 mr-2"></span>
                                         Perusahaan
                                     </span>
-                                    @elseif($user->role == 'super_admin')
+                                    @elseif($user->role == 'superadmin')
                                     <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-amber-50 text-amber-600 border border-amber-100">
                                         <span class="w-1.5 h-1.5 rounded-full bg-amber-500 mr-2"></span>
                                         Superadmin

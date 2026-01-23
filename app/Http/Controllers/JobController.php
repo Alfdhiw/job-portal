@@ -18,13 +18,24 @@ class JobController extends Controller
             return redirect()->route('home');
         }
 
-        $jobs = Job::active()
+        $jobs = Job::query()
+            ->where('created_by_id', Auth::id())
             ->latest()
             ->filter(request(['search', 'min_salary']))
             ->paginate(10)
             ->withQueryString();
-
         return view('jobs.index', compact('jobs'));
+    }
+
+    public function dashboard()
+    {
+        $userId = Auth::id();
+
+        $jobs = Job::where('created_by_id', $userId)
+            ->latest()
+            ->paginate(10);
+
+        return view('jobs.dashboard', compact('jobs'));
     }
 
     public function create()
@@ -43,6 +54,10 @@ class JobController extends Controller
 
     public function store(Request $request)
     {
+        // --- DEBUGGING SEMENTARA ---
+        // // Uncomment baris di bawah ini, lalu coba submit form lagi
+        // dd(Auth::id()); 
+        // ---------------------------
         Gate::authorize('is-employer');
 
         $employer = Auth::user()->employer;
@@ -57,12 +72,13 @@ class JobController extends Controller
             'department'   => 'required|string|max:255',
             'location'     => 'required|string|max:255',
             'description'  => 'required',
-            'salary'       => 'nullable|string', 
+            'salary'       => 'nullable|string',
             'published_at' => 'required|date',
             'expires_at'   => 'required|date|after:published_at',
         ]);
 
-        $employer->jobs()->create([
+        Job::create([
+            'created_by_id' => Auth::id(),
             'title'        => $request->title,
             'department'   => $request->department,
             'location'     => $request->location,

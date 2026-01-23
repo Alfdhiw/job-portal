@@ -15,8 +15,8 @@ class AdminOnly
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (auth()->check() && auth()->user()->role === 'candidate') {
-            abort(403, 'Akses Ditolak. Halaman ini khusus Admin.');
+        if (auth()->check() && auth()->user()->role !== 'employer') {
+            abort(403, 'Akses Ditolak. Halaman ini khusus Employer.');
         }
         return $next($request);
     }

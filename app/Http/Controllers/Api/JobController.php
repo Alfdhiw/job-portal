@@ -41,6 +41,23 @@ class JobController extends Controller
         ], 200);
     }
 
+    public function show($id)
+    {
+       
+        $job = Job::with(['creator.employer'])->find($id);
+
+        if (!$job) {
+            return response()->json([
+                'message' => 'Lowongan tidak ditemukan'
+            ], 404);
+        }
+
+        return response()->json([
+            'message' => 'Detail lowongan pekerjaan',
+            'data' => $job
+        ]);
+    }
+
     public function apply(Request $request, $id)
     {
         $job = Job::find($id);

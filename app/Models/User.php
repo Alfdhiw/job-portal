@@ -59,15 +59,21 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasOne(Employer::class);
     }
 
+    // app/Models/User.php
+
     public function hasIncompleteProfile(): bool
     {
-        $employer = $this->employer;
+        $employer = Employer::where('user_id', $this->id)->first();
 
         if (! $employer) {
             return true;
         }
 
-        if (empty($employer->name) || empty($employer->logo) || empty($employer->description)) {
+        if (
+            empty($employer->name) ||
+            empty($employer->logo) ||
+            empty($employer->description)
+        ) {
             return true;
         }
 
@@ -80,7 +86,8 @@ class User extends Authenticatable implements MustVerifyEmail
             return null;
         }
 
-        return $this->employer->jobs()
+        return Job::where('created_by_id', $this->id)
+            ->where('is_published', true)
             ->whereDate('expires_at', '>=', now())
             ->whereDate('expires_at', '<=', now()->addDays(5))
             ->orderBy('expires_at', 'asc')
@@ -89,18 +96,16 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function getQuickStats()
     {
-        $employer = $this->employer;
+        $myJobsQuery = Job::where('created_by_id', $this->id);
 
-        if (!$employer) {
-            return (object) ['applicants' => 0, 'jobs' => 0];
-        }
+        $totalJobs = $myJobsQuery->count();
+        $jobIds = $myJobsQuery->pluck('id');
 
-        $totalJobs = $employer->jobs()->count();
-
-        $jobIds = $employer->jobs()->pluck('id');
-
-        $applicantsThisWeek = \App\Models\JobApplication::whereIn('job_id', $jobIds)
-            ->whereBetween('created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])
+        $applicantsThisWeek = JobApplication::whereIn('job_id', $jobIds)
+            ->whereBetween('created_at', [
+                Carbon::now()->startOfWeek(),
+                Carbon::now()->endOfWeek()
+            ])
             ->count();
 
         return (object) [
@@ -123,6 +128,6 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function hasPostedJob()
     {
-        return $this->employer && $this->employer->jobs()->count() > 0;
+        return Job::where('created_by_id', $this->id)->exists();
     }
 }
