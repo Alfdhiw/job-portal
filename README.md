@@ -136,7 +136,8 @@ Jika menjalankan seeder, dapat menggunakan akun berikut untuk login:
 
 ## 🗂️ Struktur Database (ERD)
 
-<img width="2092" height="3788" alt="Image" src="https://github.com/user-attachments/assets/13e25203-5e39-48a8-9a6f-ebf881d86b56" />
+<img width="2092" height="1099" alt="image" src="https://github.com/user-attachments/assets/23c2d426-141f-494f-b6c9-a04e2c0cb87c" />
+
 
 ---
 
